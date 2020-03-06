@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         command:['git add .','git commit -m "(add) grunt file"','git push origin master'].join('&&')
       }
     }
-  })
+  });
 
   //load plugins
   grunt.loadNpmTasks("grunt-shell");
