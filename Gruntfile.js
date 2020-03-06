@@ -1,10 +1,11 @@
 module.exports = function(grunt) {
 
-  // configration
+  // configurations
   grunt.initConfig({
     shell:{
       gitHub:{
-        command:['git add .','git commit -m "(add) grunt file"','git push origin master'].join('&&')
+        command:['git add .','git commit -m "(add) grunt file"'].join('&&'),
+        push:"git push origin master"
       }
     }
   });
