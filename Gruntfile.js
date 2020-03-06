@@ -1,10 +1,13 @@
 module.exports = function(grunt) {
-
   // configurations
   grunt.initConfig({
-    shell:{
-      gitHub:{
-        command:['git add .','git commit -m "(add) grunt file"','git push origin master'].join('&&')
+    shell: {
+      gitHub: {
+        command: [
+          "git add .",
+          'git commit -m "(add) grunt file"',
+          "git push origin master"
+        ].join("&&")
       }
     }
   });
@@ -13,10 +16,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-shell");
 
   //register task
-  grunt.registerTask("deploy",["shell"])
-
-//
-
-
-
-}
+  grunt.registerTask("deploy", ["shell"]);
+};
