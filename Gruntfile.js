@@ -17,4 +17,6 @@ module.exports = function(grunt) {
 
   //register task
   grunt.registerTask("deploy", ["shell"]);
+
+  //
 };
