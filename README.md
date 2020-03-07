@@ -7,8 +7,21 @@
 - Grunt 
 
 # App Planing 
-![App Planing](src/assets/app-planing.PNG)
+![App Planing](src/assets/readMeImage/app-planing.PNG)
 
+# components
+ - root 
+ - header
+ - recipe
+ - recipe-list
+ - recipe-detail
+ - recipe-item
+ - shopping-list
+ - shooping-edit
+ 
+# Models
+- recipe
+ 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
