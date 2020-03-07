@@ -10,17 +10,18 @@
 ![App Planing](src/assets/readMeImage/app-planing.PNG)
 
 # components
- - root 
- - header
- - recipe
- - recipe-list
- - recipe-detail
- - recipe-item
- - shopping-list
- - shooping-edit
+ - Root 
+ - Header
+ - Recipe
+ - Recipe-list
+ - Recipe-detail
+ - Recipe-item
+ - Shopping-list
+ - Shopping-edit
  
 # Models
-- recipe
+- Recipe
+- Ingredient
  
 ## Development server
 
