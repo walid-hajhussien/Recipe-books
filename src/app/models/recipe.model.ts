@@ -1,7 +1,7 @@
 export class RecipeModel {
-  public name:string;
-  public description : string;
-  public imageUrl:string;
+  public name: string;
+  public description: string;
+  public imageUrl: string;
   constructor(name: string, description: string, imageUrl: string) {
     this.name = name;
     this.description = description;
