@@ -7,21 +7,14 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
-  @Output() selectTab = new EventEmitter<string>();
+  @Output() selectedTab = new EventEmitter<string>();
 
   constructor() {
   }
   ngOnInit(): void {
   }
 
-  onClickHeader(name: string) {
-    switch (name) {
-      case 'recipe':
-        this.selectTab.emit('recipe');
-        break;
-      case 'shopping':
-        this.selectTab.emit('shopping');
-        break;
-    }
+  onSelect(name: string) {
+    this.selectedTab.emit(name);
   }
 }

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Recipe-books';
   private showRecipes: boolean;
-  private showShopping: boolean;
+  private showShoppingList: boolean;
   constructor() {
     this.showRecipes = true;
   }
@@ -16,18 +16,18 @@ export class AppComponent {
   setShowIteam(name: string) {
     if (name === 'recipe') {
       this.showRecipes = true;
-      this.showShopping = false;
-    } else {
+      this.showShoppingList = false;
+    } else if (name === 'shopping-list') {
       this.showRecipes = false;
-      this.showShopping = true;
+      this.showShoppingList = true;
     }
   }
     getShowShopping() {
-     return this.showShopping;
+     return this.showShoppingList;
     }
 
   getShowRecipes() {
-return this.showRecipes;
+     return this.showRecipes;
   }
 
 
