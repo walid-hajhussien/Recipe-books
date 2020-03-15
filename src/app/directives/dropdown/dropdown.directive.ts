@@ -24,9 +24,15 @@ export class DropdownDirective implements OnInit {
   }
 
 
-  @HostListener('click') toggleOpen(){
-    this.isOpen = ! this.isOpen;
-  }
+  // @HostListener('click', ['$event']) toggleOpen(event: Event) {
+  //   console.log(event)
+  //   this.isOpen = ! this.isOpen;
+  // }
+
+@HostListener('document:click', ['$event']) onClickAny(event: Event) {
+    console.log(event.target)
+    this.isOpen = this.elementRef.nativeElement.contains(event.target) ? !this.isOpen : false;
+}
   // @HostListener('click') onClick() {
   //   if (this.open) {
   //     this.renderer.removeClass(this.elementRef.nativeElement, 'open');
