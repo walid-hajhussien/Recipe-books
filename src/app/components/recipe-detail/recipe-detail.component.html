@@ -31,7 +31,9 @@
 
 <div class="row">
   <div class="col-xs-12">
-    Ingredient
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ingredient of selectedRecipe.ingredients; let i = index">{{ingredient.name}}({{ingredient.amount}})</li>
+    </ul>
   </div>
 </div>
 
