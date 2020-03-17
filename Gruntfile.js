@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       gitHub: {
         command: [
           "git add .",
-          'git commit -m "(add) shopping and recipe service "',
+          'git commit -m "(refactor) recipe service "',
           "git push origin master"
         ].join("&&")
       }
