@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {IngredientModel} from '../../models/ingredient.model';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingListService {
+  ingrediantsChange =  new Subject<IngredientModel[]>();
   private readonly  ingredients: IngredientModel[];
 
   constructor() {
@@ -16,10 +18,12 @@ export class ShoppingListService {
   }
 
   addIngredient(ingredient: IngredientModel) {
+    this.ingrediantsChange.next(this.ingredients);
     this.ingredients.push(ingredient);
   }
 
   addIngredients(ingredients: IngredientModel[]) {
+    this.ingrediantsChange.next(this.ingredients);
     this.ingredients.push(...ingredients);
   }
 
