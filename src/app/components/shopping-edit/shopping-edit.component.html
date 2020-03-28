@@ -1,22 +1,22 @@
 <div class="row">
   <div class="col-xs-12">
 
-    <form>
+    <form (ngSubmit)="onAddIngredient(formObject)" #formObject="ngForm">
 
       <div class="row">
         <div class="col-sm-5">
           <label for="name">Name</label>
-          <input #nameInput type="text" id="name" class="form-control">
+          <input required  ngModel name="name" type="text" id="name" class="form-control">
         </div>
         <div class="col-sm-2">
           <label for="amount">Amount</label>
-          <input #amountInput type="text" id="amount" class="form-control">
+          <input required pattern="^[1-9]+[0-9]*$" ngModel name="amount" type="number" id="amount" class="form-control">
         </div>
       </div>
 
       <div class="row">
       <div class="col-xs-12" >
-        <button (click)="onAddIngredient()" class="btn btn-success buttonSpace" type="submit">Add</button>
+        <button [disabled]="formObject.invalid"  class="btn btn-success buttonSpace" type="submit">Add</button>
         <button class="btn btn-danger buttonSpace" type="button">Delete</button>
         <button class="btn btn-primary buttonSpace" type="button">Clear</button>
       </div>
