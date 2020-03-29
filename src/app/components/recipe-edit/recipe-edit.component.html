@@ -3,8 +3,8 @@
     <form [formGroup]="formObject" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit">Save</button>
-          <button class="btn btn-danger" type="button">Save</button>
+          <button style="margin: 5px" class="btn btn-success" type="submit">Save</button>
+          <button class="btn btn-danger" type="button">Delete</button>
         </div>
       </div>
 
@@ -42,15 +42,15 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12">
-          <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients" >
+          <div style="margin: 5px" class="row" *ngFor="let ingrediantCtrl of getFormControl('ingredients'); let i = index" [formGroupName]="i">
 
             <div class="col-xs-8">
-              <input type="text" class="form-control">
+              <input formControlName="name" type="text" class="form-control">
             </div>
 
             <div class="col-xs-2">
-              <input type="number" class="form-control">
+              <input formControlName="amount" type="number" class="form-control">
             </div>
 
             <div class="col-xs-2">
