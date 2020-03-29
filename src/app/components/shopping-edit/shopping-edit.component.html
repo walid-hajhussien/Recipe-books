@@ -17,8 +17,8 @@
       <div class="row">
       <div class="col-xs-12" >
         <button [disabled]="formObject.invalid"  class="btn btn-success buttonSpace" type="submit">{{this.editMode?'Update':'Add'}}</button>
-        <button class="btn btn-danger buttonSpace" type="button">Delete</button>
-        <button class="btn btn-primary buttonSpace" type="button">Clear</button>
+        <button *ngIf="editMode" (click)="onDelete()" class="btn btn-danger buttonSpace" type="button">Delete</button>
+        <button (click)="onClear()" class="btn btn-primary buttonSpace" type="button">Clear</button>
       </div>
       </div>
 
