@@ -3,7 +3,7 @@
     <form [formGroup]="formObject" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
-          <button style="margin: 5px" class="btn btn-success" type="submit">Save</button>
+          <button [disabled]="formObject.invalid" style="margin: 5px" class="btn btn-success" type="submit">Save</button>
           <button class="btn btn-danger" type="button">Delete</button>
         </div>
       </div>
