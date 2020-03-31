@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-xs-12">
           <button [disabled]="formObject.invalid" style="margin: 5px" class="btn btn-success" type="submit">Save</button>
-          <button class="btn btn-danger" type="button">Delete</button>
+          <button (click)="onCancelEdit()" class="btn btn-danger" type="button">Cancel</button>
         </div>
       </div>
 

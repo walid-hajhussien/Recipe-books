@@ -33,5 +33,9 @@ export class RecipeService {
     this.recipes.push(recipe);
   }
 
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+  }
+
 
 }
