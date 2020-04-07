@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
 
   onSaveRecipes(){}
 
+  onFetchRecipes(){}
+
   onSelect(name: string) {
     this.selectedTab.emit(name);
   }
