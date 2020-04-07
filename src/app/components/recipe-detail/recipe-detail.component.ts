@@ -11,8 +11,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class RecipeDetailComponent implements OnInit {
 
-   selectedRecipe: RecipeModel;
-   id: number;
+  selectedRecipe: RecipeModel;
+  id: number;
+
   constructor(private shoppingListService: ShoppingListService, private router: Router, private recipeService: RecipeService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id'];
@@ -28,13 +29,13 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditRecipe(): void {
-    this.router.navigate(['edit'],{relativeTo:this.activatedRoute});
+    this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
   };
 
   onDeleteRecipe() {
-      this.recipeService.deleteRecipe(this.id);
-      this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
-    }
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
+  }
 
 
 }
