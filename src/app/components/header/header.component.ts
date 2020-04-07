@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {RequestService} from '../../services/request/request.service';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,23 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class HeaderComponent implements OnInit {
   @Output() selectedTab = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private requestService: RequestService) {
   }
+
   ngOnInit(): void {
   }
 
-  onSaveRecipes(){}
+  onSaveRecipes() {
+    this.requestService.storeRecipes().subscribe((result) => {
+      console.log('recipes saved : ', result);
+    });
+  }
 
-  onFetchRecipes(){}
+  onFetchRecipes() {
+    this.requestService.fetchRecipes().subscribe((result)=>{
+      console.log(result)
+    })
+  }
 
   onSelect(name: string) {
     this.selectedTab.emit(name);
