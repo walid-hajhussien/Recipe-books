@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSaveRecipes(){}
+
   onSelect(name: string) {
     this.selectedTab.emit(name);
   }
