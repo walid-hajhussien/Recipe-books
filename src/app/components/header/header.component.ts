@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {RequestService} from '../../services/request/request.service';
+import {RecipeService} from '../../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import {RequestService} from '../../services/request/request.service';
 export class HeaderComponent implements OnInit {
   @Output() selectedTab = new EventEmitter<string>();
 
-  constructor(private requestService: RequestService) {
+  constructor(private requestService: RequestService, private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
@@ -23,9 +24,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onFetchRecipes() {
-    this.requestService.fetchRecipes().subscribe((result)=>{
-      console.log(result)
-    })
+    this.requestService.fetchRecipes().subscribe((result) => {
+      console.log(result);
+      this.recipeService.setRecipes(result);
+    });
   }
 
   onSelect(name: string) {

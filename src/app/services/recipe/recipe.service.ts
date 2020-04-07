@@ -1,12 +1,14 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {RecipeModel} from '../../models/recipe.model';
 import {IngredientModel} from '../../models/ingredient.model';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  private readonly recipes: RecipeModel[];
+  private recipes: RecipeModel[];
+  public recipesChange: Subject<RecipeModel[]> = new Subject();
 
   constructor() {
     this.recipes = [new RecipeModel('Meat recipe', 'recipe test description',
@@ -15,6 +17,11 @@ export class RecipeService {
       [new IngredientModel('meat', 1), new IngredientModel('Bread', 2)]), new RecipeModel('chicken recipe', 'recipe test description', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20191011-keto-fried-chicken-delish-ehg-2658-1571677666.jpg?crop=0.716xw:1.00xh;0.170xw,0&resize=980:*',
       [new IngredientModel('meat', 1), new IngredientModel('Bread', 2)])];
 
+  }
+
+  setRecipes(recipes: RecipeModel[]) {
+    this.recipes = recipes;
+    this.recipesChange.next(this.recipes);
   }
 
   getRecipes() {

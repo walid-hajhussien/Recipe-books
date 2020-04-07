@@ -18,6 +18,6 @@ export class RequestService {
   }
 
   fetchRecipes(): Observable<any> {
-    return this.http.get('https://recipe-books-2a969.firebaseio.com/recipes.json');
+    return this.http.get<RecipeModel[]>('https://recipe-books-2a969.firebaseio.com/recipes.json');
   }
 }
