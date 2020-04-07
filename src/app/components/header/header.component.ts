@@ -29,8 +29,4 @@ export class HeaderComponent implements OnInit {
       this.recipeService.setRecipes(result);
     });
   }
-
-  onSelect(name: string) {
-    this.selectedTab.emit(name);
-  }
 }
