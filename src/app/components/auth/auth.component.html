@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
     <form (ngSubmit)="onSubmitForm(form)" #form="ngForm">
+      <fieldset [disabled]="isLoading">
       <div class="form-group">
         <label for="email">E-Mail</label>
         <input required email ngModel name="email" type="email" id="email" class="form-control">
@@ -14,6 +15,13 @@
 
         <button class="btn btn-primary" type="button" (click)="onSwitchLoginMode()">Switch to {{isLoginMode ? 'Sign Up':'Login'}}</button>
       </div>
+      </fieldset>
     </form>
+    <div class="alert alert-danger" *ngIf="errorMessage" style="margin-top: 15px">
+    {{errorMessage}}
+    </div>
+    <div *ngIf="isLoading" style="text-align: center" >
+      <app-loading-spinner></app-loading-spinner>
+    </div>
   </div>
 </div>
