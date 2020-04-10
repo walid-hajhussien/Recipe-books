@@ -1,22 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
-import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './components/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './components/shopping-edit/shopping-edit.component';
-import { DropdownDirective } from './directives/dropdown/dropdown.directive';
-import { AppRoutingModule } from './app-routing.module';
-import { SelectRecipeComponent } from './components/select-recipe/select-recipe.component';
-import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
+import {RecipesComponent} from './components/recipes/recipes.component';
+import {RecipeListComponent} from './components/recipe-list/recipe-list.component';
+import {RecipeDetailComponent} from './components/recipe-detail/recipe-detail.component';
+import {RecipeItemComponent} from './components/recipe-item/recipe-item.component';
+import {ShoppingListComponent} from './components/shopping-list/shopping-list.component';
+import {ShoppingEditComponent} from './components/shopping-edit/shopping-edit.component';
+import {DropdownDirective} from './directives/dropdown/dropdown.directive';
+import {AppRoutingModule} from './app-routing.module';
+import {SelectRecipeComponent} from './components/select-recipe/select-recipe.component';
+import {RecipeEditComponent} from './components/recipe-edit/recipe-edit.component';
 import {HttpClientModule} from '@angular/common/http';
-import { AuthComponent } from './components/auth/auth.component';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import {AuthComponent} from './components/auth/auth.component';
+import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
+import { ErrorMessagePipe } from './pipes/errorMessage/error-message.pipe';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    ErrorMessagePipe,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ErrorMessagePipe],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

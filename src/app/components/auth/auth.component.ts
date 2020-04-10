@@ -23,6 +23,9 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmitForm(form: NgForm): void {
+    // remove the previous error
+    this.errorMessage = null;
+
     if (form.invalid) {
       return;
     }
@@ -44,10 +47,9 @@ export class AuthComponent implements OnInit {
         // this.authService.sendVerificationEmail(response.idToken).subscribe((res) => {
         //   console.log('res', res);
         // });
-      }, error => {
+      }, errorResponse => {
         this.isLoading = false;
-        this.errorMessage = 'server not available !';
-        console.log(error);
+        this.errorMessage = errorResponse;
       });
 
     }
