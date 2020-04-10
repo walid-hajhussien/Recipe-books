@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 
@@ -12,6 +12,8 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   errorMessage: string = null;
 
+  @ViewChild('form', {static: true}) formObject: NgForm;
+
   constructor(private authService: AuthService) {
   }
 
@@ -23,37 +25,41 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmitForm(form: NgForm): void {
-    // remove the previous error
-    this.errorMessage = null;
-
     if (form.invalid) {
       return;
     }
-
     const email = form.value.email;
     const password = form.value.password;
 
     if (this.isLoginMode) {
-      return;
+      this.signIn(email, password);
     } else {
-      // loading
-      this.isLoading = true;
-      // signUp
-      this.authService.signUp(email, password).subscribe((response) => {
-        this.isLoading = false;
-        form.reset();
-        console.log(response);
-        // send verification email
-        // this.authService.sendVerificationEmail(response.idToken).subscribe((res) => {
-        //   console.log('res', res);
-        // });
-      }, errorResponse => {
-        this.isLoading = false;
-        this.errorMessage = errorResponse;
-      });
-
+      this.signUp(email, password);
     }
+  }
 
+  signUp(email: string, password: string) {
+    this.errorMessage = null;
+    this.isLoading = true;
+    this.authService.signUp(email, password).subscribe((response) => {
+      this.isLoading = false;
+      this.formObject.reset();
+    }, errorResponse => {
+      this.isLoading = false;
+      this.errorMessage = errorResponse;
+    });
+  }
+
+  signIn(email: string, password: string) {
+    this.errorMessage = null;
+    this.isLoading = true;
+    this.authService.signIn(email, password).subscribe((response) => {
+      this.formObject.reset();
+      this.isLoading = false;
+      console.log('Login', response);
+    }, (errorResponse) => {
+      console.log('LoginError', errorResponse);
+    });
 
   }
 

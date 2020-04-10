@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {FbSignUp} from '../../interfaces/fb-sign-up';
 import {catchError} from 'rxjs/operators';
 import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
+import {FbSignIn} from '../../interfaces/fb-sign-in';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,13 @@ export class AuthService {
       }
       return throwError(errorMessage);
     }));
+  }
+
+  signIn(email: string, password: string): Observable<any> {
+    const credentials: CredentialsModel = new CredentialsModel(email, password);
+    return this.http.post<FbSignIn>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw'
+      , credentials);
   }
 
   sendVerificationEmail(idToken: string): Observable<any> {

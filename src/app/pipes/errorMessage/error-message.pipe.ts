@@ -17,6 +17,15 @@ export class ErrorMessagePipe implements PipeTransform {
       case 'TOO_MANY_ATTEMPTS_TRY_LATER':
         errorMessage = 'Server Busy Please Try Again Later...';
         break;
+      case 'EMAIL_NOT_FOUND':
+        errorMessage = 'Email Not Found !';
+        break;
+      case 'INVALID_PASSWORD':
+        errorMessage = 'Invalid Password !';
+        break;
+      case 'USER_DISABLED':
+        errorMessage = 'User Disabled !';
+        break;
       default:
         errorMessage = 'Server Error Please Try Again Later...';
         break;
