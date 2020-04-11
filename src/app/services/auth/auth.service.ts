@@ -32,7 +32,13 @@ export class AuthService {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignIn>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw'
-      , credentials);
+      , credentials).pipe(catchError((errorResponse) => {
+      let errorMessage = 'An Unknown Error Occur !';
+      if (errorResponse?.error?.error?.message) {
+        errorMessage = this.errorMessagePipe.transform(errorResponse.error.error.message);
+      }
+      return throwError(errorMessage);
+    }));
   }
 
   sendVerificationEmail(idToken: string): Observable<any> {

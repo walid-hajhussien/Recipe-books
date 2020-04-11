@@ -21,6 +21,7 @@ export class AuthComponent implements OnInit {
   }
 
   onSwitchLoginMode() {
+    this.errorMessage = null;
     this.isLoginMode = !this.isLoginMode;
   }
 
@@ -44,9 +45,9 @@ export class AuthComponent implements OnInit {
     this.authService.signUp(email, password).subscribe((response) => {
       this.isLoading = false;
       this.formObject.reset();
-    }, errorResponse => {
+    }, error => {
       this.isLoading = false;
-      this.errorMessage = errorResponse;
+      this.errorMessage = error;
     });
   }
 
@@ -57,8 +58,9 @@ export class AuthComponent implements OnInit {
       this.formObject.reset();
       this.isLoading = false;
       console.log('Login', response);
-    }, (errorResponse) => {
-      console.log('LoginError', errorResponse);
+    }, (error) => {
+      this.isLoading = false;
+      this.errorMessage = error;
     });
 
   }
