@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class ErrorMessagePipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): string {
+  transform(value: string, ...args: unknown[]): string {
     let errorMessage = '';
     switch (value) {
       case 'EMAIL_EXISTS':

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent implements OnInit {
 
   @ViewChild('form', {static: true}) formObject: NgForm;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class AuthComponent implements OnInit {
     this.authService.signUp(email, password).subscribe((response) => {
       this.isLoading = false;
       this.formObject.reset();
+      this.router.navigate(['/recipes']);
     }, error => {
       this.isLoading = false;
       this.errorMessage = error;
@@ -57,7 +59,7 @@ export class AuthComponent implements OnInit {
     this.authService.signIn(email, password).subscribe((response) => {
       this.formObject.reset();
       this.isLoading = false;
-      console.log('Login', response);
+      this.router.navigate(['/recipes']);
     }, (error) => {
       this.isLoading = false;
       this.errorMessage = error;
