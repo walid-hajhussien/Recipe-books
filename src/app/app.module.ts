@@ -14,10 +14,11 @@ import {DropdownDirective} from './directives/dropdown/dropdown.directive';
 import {AppRoutingModule} from './app-routing.module';
 import {SelectRecipeComponent} from './components/select-recipe/select-recipe.component';
 import {RecipeEditComponent} from './components/recipe-edit/recipe-edit.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthComponent} from './components/auth/auth.component';
 import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
-import { ErrorMessagePipe } from './pipes/errorMessage/error-message.pipe';
+import {ErrorMessagePipe} from './pipes/errorMessage/error-message.pipe';
+import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { ErrorMessagePipe } from './pipes/errorMessage/error-message.pipe';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ErrorMessagePipe],
+  providers: [ErrorMessagePipe, {
+    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

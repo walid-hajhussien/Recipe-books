@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {CredentialsModel} from '../../models/credentials.model';
-import {Observable, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
 import {FbSignUp} from '../../interfaces/fb-sign-up';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, exhaustMap, take, tap} from 'rxjs/operators';
 import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
 import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
@@ -13,7 +13,7 @@ import {UserModel} from '../../models/user.model';
 })
 export class AuthService {
 
-  userSubject: Subject<UserModel> = new Subject<UserModel>();
+  userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
 
   constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe) {
   }
