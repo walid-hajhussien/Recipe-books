@@ -15,6 +15,7 @@ import {Router} from '@angular/router';
 export class AuthService {
 
   userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
+  tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router) {
   }
@@ -22,6 +23,8 @@ export class AuthService {
   storeUserData(userData: FbSignIn | FbSignUp): void {
     const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
     const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
+    localStorage.setItem('userData', JSON.stringify(user));
+    this.autoLogout(+userData.expiresIn * 1000);
     this.userSubject.next(user);
   }
 
@@ -55,9 +58,36 @@ export class AuthService {
     }));
   }
 
+  autoSignIn() {
+    const localUser = localStorage.getItem('userData');
+    if (!localUser) {
+      return null;
+    }
+    const userParse = JSON.parse(localUser);
+    const user = new UserModel(userParse.localId, userParse.email, userParse.token, new Date(userParse.tokenExpirationDate), userParse.refreshToken);
+    console.log(localUser)
+    if (user.getToken) {
+      const expirationTime = (new Date(userParse.tokenExpirationDate).getTime()) - (new Date().getTime());
+      console.log(expirationTime)
+      this.autoLogout(expirationTime);
+      this.userSubject.next(user);
+    }
+  }
+
   logout(): void {
     this.userSubject.next(null);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
     this.router.navigate(['/auth']);
+  }
+
+  autoLogout(time: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, time);
   }
 
   sendVerificationEmail(idToken: string): Observable<any> {
