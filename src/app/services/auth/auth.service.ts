@@ -24,7 +24,7 @@ export class AuthService {
     const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
     const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
     localStorage.setItem('userData', JSON.stringify(user));
-    this.autoLogout(+userData.expiresIn * 1000);
+    // this.autoLogout(+userData.expiresIn * 1000);
     this.userSubject.next(user);
   }
 
@@ -64,12 +64,12 @@ export class AuthService {
       return null;
     }
     const userParse = JSON.parse(localUser);
-    const user = new UserModel(userParse.localId, userParse.email, userParse.token, new Date(userParse.tokenExpirationDate), userParse.refreshToken);
-    console.log(localUser)
+    const user = new UserModel(userParse.localId, userParse.email, userParse.token, new Date(userParse.tokenExpirationDate),
+      userParse.refreshToken);
     if (user.getToken) {
       const expirationTime = (new Date(userParse.tokenExpirationDate).getTime()) - (new Date().getTime());
-      console.log(expirationTime)
-      this.autoLogout(expirationTime);
+      console.log(expirationTime);
+      // this.autoLogout(expirationTime);
       this.userSubject.next(user);
     }
   }
@@ -85,6 +85,7 @@ export class AuthService {
   }
 
   autoLogout(time: number) {
+    // using userIdle
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, time);

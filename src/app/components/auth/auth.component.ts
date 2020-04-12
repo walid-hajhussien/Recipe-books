@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -25,6 +26,7 @@ export class AuthComponent implements OnInit {
     this.errorMessage = null;
     this.isLoginMode = !this.isLoginMode;
   }
+
 
   onSubmitForm(form: NgForm): void {
     if (form.invalid) {

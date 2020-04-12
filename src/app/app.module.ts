@@ -19,6 +19,7 @@ import {AuthComponent} from './components/auth/auth.component';
 import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
 import {ErrorMessagePipe} from './pipes/errorMessage/error-message.pipe';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
+import {UserIdleModule} from 'angular-user-idle';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    UserIdleModule.forRoot({idle: 10, timeout: 5, ping: 2})
   ],
   providers: [ErrorMessagePipe, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
