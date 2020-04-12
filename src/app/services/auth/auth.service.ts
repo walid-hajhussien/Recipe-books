@@ -7,6 +7,7 @@ import {catchError, exhaustMap, take, tap} from 'rxjs/operators';
 import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
 import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
 
   userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
 
-  constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe) {
+  constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router) {
   }
 
   storeUserData(userData: FbSignIn | FbSignUp): void {
@@ -52,6 +53,11 @@ export class AuthService {
     }), tap((response) => {
       this.storeUserData(response);
     }));
+  }
+
+  logout(): void {
+    this.userSubject.next(null);
+    this.router.navigate(['/auth']);
   }
 
   sendVerificationEmail(idToken: string): Observable<any> {
