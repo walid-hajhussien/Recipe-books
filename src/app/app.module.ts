@@ -45,7 +45,7 @@ import {UserIdleModule} from 'angular-user-idle';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UserIdleModule.forRoot({idle: 10, timeout: 5, ping: 2})
+    UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300})
   ],
   providers: [ErrorMessagePipe, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
