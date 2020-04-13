@@ -20,6 +20,7 @@ import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spin
 import {ErrorMessagePipe} from './pipes/errorMessage/error-message.pipe';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
 import {UserIdleModule} from 'angular-user-idle';
+import { AlertComponent } from './DynamicComponents/alert/alert.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {UserIdleModule} from 'angular-user-idle';
     AuthComponent,
     LoadingSpinnerComponent,
     ErrorMessagePipe,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
