@@ -6,13 +6,13 @@
 - Angular V9
 - Grunt 
 
-#Feature
+# Feature
 - angular Idle
 - firebase service
 - error handler
 
 
-#Technical characteristics
+# Technical characteristics
 - Angular Router
 - router Guard 
 - resolver
