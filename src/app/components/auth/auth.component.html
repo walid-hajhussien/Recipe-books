@@ -22,16 +22,16 @@
     </form>
 <!--    Normal alert-->
 
-    <!--    <div class="alert alert-danger alert-dismissible"  *ngIf="errorMessage" style="margin-top: 15px">-->
-    <!--      <button type="button" class="close" (click)="errorMessage=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-    <!--    {{errorMessage}}-->
-    <!--    </div>-->
+        <div class="alert alert-danger alert-dismissible"  *ngIf="errorMessage" style="margin-top: 15px">
+          <button type="button" class="close" (click)="errorMessage=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{errorMessage}}
+        </div>
 
 <!--    dynamic component ngIf-->
 <!--    <app-alert (closeAlert)="clearError()" [message]="errorMessage" *ngIf="errorMessage"></app-alert>-->
 
 <!--    dynamic component imperative -->
-    <ng-template appPlaceholder></ng-template>
+<!--    <ng-template appPlaceholder></ng-template>-->
     <div *ngIf="isLoading" style="text-align: center">
       <app-loading-spinner></app-loading-spinner>
     </div>

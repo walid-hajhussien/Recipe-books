@@ -65,7 +65,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }, error => {
       this.isLoading = false;
       this.errorMessage = error;
-      this.showErrorAlert(error);
+      // this.showErrorAlert(error);
     });
   }
 
@@ -79,7 +79,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.isLoading = false;
       this.errorMessage = error;
-      this.showErrorAlert(error);
+      // this.showErrorAlert(error);
     });
 
   }

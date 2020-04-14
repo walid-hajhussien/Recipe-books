@@ -6,6 +6,23 @@
 - Angular V9
 - Grunt 
 
+#Feature
+- angular Idle
+- firebase service
+- error handler
+
+
+#Technical characteristics
+- Angular Router
+- router Guard 
+- resolver
+- canActivate & canDeactivate route
+- interceptor
+- Template driven approach Form 
+- Reactive approach Form 
+- http request
+
+
 # App Planing 
 ![App Planing](src/assets/readMeImage/app-planing.PNG)
 
@@ -18,10 +35,33 @@
  - Recipe-item
  - Shopping-list
  - Shopping-edit
+ - auth
+ - loading-spinner
+ - select-recipe
  
 # Models
 - Recipe
 - Ingredient
+- user
+- credential
+
+# directive
+- dropdown
+- placeholder
+
+# DynamicComponent
+- alert
+
+#interceptors
+- auth
+
+#pipes 
+- errorMessage
+
+# interface
+- firebase sign In
+- firebase sign Up
+
  
 ## Development server
 
