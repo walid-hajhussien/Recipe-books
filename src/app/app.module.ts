@@ -21,6 +21,7 @@ import {ErrorMessagePipe} from './pipes/errorMessage/error-message.pipe';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
 import {UserIdleModule} from 'angular-user-idle';
 import { AlertComponent } from './DynamicComponents/alert/alert.component';
+import { PlaceholderDirective } from './directives/placeholder/placeholder.directive';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AlertComponent } from './DynamicComponents/alert/alert.component';
     LoadingSpinnerComponent,
     ErrorMessagePipe,
     AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
