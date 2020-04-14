@@ -12,6 +12,7 @@ import {UserIdleModule} from 'angular-user-idle';
 import {RecipeModule} from './modules/recipeModule/recipe.module';
 import {ShoppingListModule} from './modules/shoppingListModule/shopping-list.module';
 import {SharedModule} from './modules/sharedModule/shared.module';
+import {CoreModule} from './modules/coreModule/core.module';
 
 
 @NgModule({
@@ -29,11 +30,10 @@ import {SharedModule} from './modules/sharedModule/shared.module';
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     RecipeModule,
     ShoppingListModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
-  providers: [ErrorMessagePipe, {
-    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
-  }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
