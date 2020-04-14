@@ -15,12 +15,15 @@
 # Technical characteristics
 - Angular Router
 - router Guard 
+- child route
 - resolver
 - canActivate & canDeactivate route
 - interceptor
 - Template driven approach Form 
 - Reactive approach Form 
 - http request
+- Feature Module
+
 
 
 # App Planing 
