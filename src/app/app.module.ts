@@ -20,23 +20,18 @@ import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spin
 import {ErrorMessagePipe} from './pipes/errorMessage/error-message.pipe';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
 import {UserIdleModule} from 'angular-user-idle';
-import { AlertComponent } from './DynamicComponents/alert/alert.component';
-import { PlaceholderDirective } from './directives/placeholder/placeholder.directive';
+import {AlertComponent} from './DynamicComponents/alert/alert.component';
+import {PlaceholderDirective} from './directives/placeholder/placeholder.directive';
+import {RecipeModule} from './modules/recipeModule/recipe.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
     DropdownDirective,
-    SelectRecipeComponent,
-    RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
     ErrorMessagePipe,
@@ -49,7 +44,8 @@ import { PlaceholderDirective } from './directives/placeholder/placeholder.direc
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300})
+    UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
+    RecipeModule
   ],
   providers: [ErrorMessagePipe, {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
