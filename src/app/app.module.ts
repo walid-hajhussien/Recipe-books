@@ -7,7 +7,6 @@ import { HttpClientModule} from '@angular/common/http';
 import {UserIdleModule} from 'angular-user-idle';
 import {SharedModule} from './modules/sharedModule/shared.module';
 import {CoreModule} from './modules/coreModule/core.module';
-import {AuthModule} from './modules/authModule/auth.module';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import {AuthModule} from './modules/authModule/auth.module';
     HttpClientModule,
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
-    CoreModule,
-    AuthModule
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

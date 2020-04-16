@@ -9,7 +9,8 @@ const appRoutes: Routes = [
   {
     path: 'shoppingList',
     loadChildren: () => import('./modules/shoppingListModule/shopping-list.module').then(modules => modules.ShoppingListModule)
-  }
+  },
+  {path: 'auth', loadChildren: () => import('./modules/authModule/auth.module').then(modules => modules.AuthModule)}
 ];
 
 @NgModule({
