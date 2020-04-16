@@ -5,7 +5,6 @@ import {HeaderComponent} from './components/header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
 import {UserIdleModule} from 'angular-user-idle';
-import {ShoppingListModule} from './modules/shoppingListModule/shopping-list.module';
 import {SharedModule} from './modules/sharedModule/shared.module';
 import {CoreModule} from './modules/coreModule/core.module';
 import {AuthModule} from './modules/authModule/auth.module';
@@ -21,7 +20,6 @@ import {AuthModule} from './modules/authModule/auth.module';
     AppRoutingModule,
     HttpClientModule,
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
-    ShoppingListModule,
     SharedModule,
     CoreModule,
     AuthModule
