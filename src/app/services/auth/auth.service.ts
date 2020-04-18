@@ -8,6 +8,7 @@ import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
 import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class AuthService {
   signUp(email: string, password: string): Observable<any> {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignUp>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw'
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey
       , credentials).pipe(catchError(errorResponse => {
       return throwError(this.formatError(errorResponse));
     }), tap((response) => {
@@ -50,7 +51,7 @@ export class AuthService {
   signIn(email: string, password: string): Observable<any> {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignIn>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw'
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey
       , credentials).pipe(catchError((errorResponse) => {
       return throwError(this.formatError(errorResponse));
     }), tap((response) => {
