@@ -1,13 +1,9 @@
-import {ShoppingListStateInterface} from '../../interfaces/shopping-list-state-interface';
-import {IngredientModel} from '../../models/ingredient.model';
 import {ShoppingListAction, ShoppingListActionTypes} from './shopping-list.actions';
+import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-state-interface';
+import {shoppingListState} from './shopping-list.state';
 
 
-const initState: ShoppingListStateInterface = {
-  ingredients: [new IngredientModel('Apple', 5), new IngredientModel('Tomato', 10)]
-};
-
-export function shoppingListReducer(state: ShoppingListStateInterface = initState, action: ShoppingListAction) {
+export function shoppingListReducer(state: ShoppingListStateInterface = shoppingListState, action: ShoppingListAction) {
 
   switch (action.type) {
     case ShoppingListActionTypes.ADD_INGREDIENT:
