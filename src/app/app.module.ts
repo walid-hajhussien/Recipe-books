@@ -8,7 +8,7 @@ import {UserIdleModule} from 'angular-user-idle';
 import {SharedModule} from './modules/sharedModule/shared.module';
 import {CoreModule} from './modules/coreModule/core.module';
 import {StoreModule} from '@ngrx/store';
-import {shoppingListReducer} from './store/shoppingListStore/shopping-list.reducer';
+import {appReducer} from './store/appStore/app.reducer';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import {shoppingListReducer} from './store/shoppingListStore/shopping-list.reduc
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    StoreModule.forRoot(appReducer),
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
     CoreModule
