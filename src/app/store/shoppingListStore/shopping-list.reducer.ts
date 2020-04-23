@@ -11,11 +11,13 @@ export function shoppingListReducer(state: ShoppingListStateInterface = shopping
         ...state,
         ingredients: [...state.ingredients, action.payLoad]
       };
-      break;
+    case ShoppingListActionTypes.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payLoad]
+      };
     default:
       return state;
-      break;
-
   }
 
 }
