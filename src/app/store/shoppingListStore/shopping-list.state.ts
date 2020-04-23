@@ -2,5 +2,7 @@ import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-s
 import {IngredientModel} from '../../models/ingredient.model';
 
 export const shoppingListState: ShoppingListStateInterface = {
-  ingredients: [new IngredientModel('Apple', 5), new IngredientModel('Tomato', 10)]
+  ingredients: [new IngredientModel('Apple', 5), new IngredientModel('Tomato', 10)],
+  editedIngredient: null,
+  editedIngredientIndex: null
 };

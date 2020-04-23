@@ -5,7 +5,9 @@ export enum ShoppingListActionTypes {
   ADD_INGREDIENT = 'ADD_INGREDIENT',
   ADD_INGREDIENTS = 'ADD_INGREDIENTS',
   UPDATE_INGREDIENT = 'UPDATE_INGREDIENT',
-  DELETE_INGREDIENT = 'DELETE_INGREDIENT'
+  DELETE_INGREDIENT = 'DELETE_INGREDIENT',
+  START_EDIT_INGREDIENT = 'START_EDIT_INGREDIENT',
+  STOP_EDIT_INGREDIENT = 'STOP_EDIT_INGREDIENT'
 }
 
 
@@ -37,4 +39,21 @@ export class DeleteIngredientsAction implements Action {
   }
 }
 
-export type ShoppingListActions = AddIngredientAction | AddIngredientsAction | UpdateIngredientsAction | DeleteIngredientsAction;
+export class StartEditIngredientAction implements Action {
+  public readonly type = ShoppingListActionTypes.START_EDIT_INGREDIENT;
+
+  constructor(public payLoad: number) {
+  }
+}
+
+export class StopEditIngredientAction implements Action {
+  public readonly type = ShoppingListActionTypes.STOP_EDIT_INGREDIENT;
+
+}
+
+export type ShoppingListActions = AddIngredientAction |
+  AddIngredientsAction |
+  UpdateIngredientsAction |
+  DeleteIngredientsAction |
+  StartEditIngredientAction |
+  StopEditIngredientAction;

@@ -6,7 +6,7 @@ import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {
   AddIngredientAction,
   AddIngredientsAction,
-  DeleteIngredientsAction,
+  DeleteIngredientsAction, StartEditIngredientAction, StopEditIngredientAction,
   UpdateIngredientsAction
 } from '../../store/shoppingListStore/shopping-list.actions';
 
@@ -54,6 +54,14 @@ export class ShoppingListService {
     this.store.dispatch(new DeleteIngredientsAction(index));
     // this.ingredients.splice(index, 1);
     // this.ingrediantsChange.next(this.ingredients);
+  }
+
+  startEditIngredient(index: number) {
+    this.store.dispatch(new StartEditIngredientAction(index));
+  }
+
+  stopEditIngredient() {
+    this.store.dispatch(new StopEditIngredientAction());
   }
 
 
