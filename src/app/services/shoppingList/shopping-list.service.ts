@@ -3,7 +3,7 @@ import {IngredientModel} from '../../models/ingredient.model';
 import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {AddIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
+import {AddIngredientAction, AddIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,9 @@ export class ShoppingListService {
   }
 
   addIngredient(ingredient: IngredientModel) {
-    this.ingredients.push(ingredient);
-    this.ingrediantsChange.next(this.ingredients);
+    // this.ingredients.push(ingredient);
+    // this.ingrediantsChange.next(this.ingredients);
+    this.store.dispatch(new AddIngredientAction(ingredient));
   }
 
   addIngredients(ingredients: IngredientModel[]) {
