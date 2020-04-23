@@ -6,10 +6,12 @@ export enum ShoppingListActionTypes {
 }
 
 
-export class AddIngredient implements Action {
-  readonly type: ShoppingListActionTypes.ADD_INGREDIENT;
-  payLoad: IngredientModel;
+export class AddIngredientAction implements Action {
+  public readonly type = ShoppingListActionTypes.ADD_INGREDIENT;
+
+  constructor(public payLoad: IngredientModel) {
+  }
 }
 
-
-export type ShoppingListAction = AddIngredient;
+// you can use | to add all the action
+export type ShoppingListActions = AddIngredientAction;

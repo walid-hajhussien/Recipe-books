@@ -1,8 +1,12 @@
-import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {IngredientModel} from '../../models/ingredient.model';
 import {ShoppingListService} from '../../services/shoppingList/shopping-list.service';
-import {FormsModule, NgForm} from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from '../../interfaces/store/app-state-interface';
+import {AddIngredientAction} from '../../store/shoppingListStore/shopping-list.actions';
+
 
 @Component({
   selector: 'app-shopping-edit',
@@ -16,12 +20,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editMode = false;
   editItemIndex: number;
   editItem: IngredientModel;
-  constructor(private shoppingListService: ShoppingListService) {
+
+  constructor(private shoppingListService: ShoppingListService, private store: Store<AppStateInterface>) {
     console.log(this.formObject);
   }
 
   ngOnInit(): void {
-    console.log(this.formObject)
+    console.log(this.formObject);
     this.subscription = this.shoppingListService.startingEdit.subscribe((index: number) => {
       this.editMode = true;
       this.editItemIndex = index;
@@ -35,10 +40,12 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onSubmitIngredient(formObject: NgForm) {
     if (this.editMode) {
-      this.shoppingListService.updateIngredient(this.editItemIndex, new IngredientModel( formObject.value.name, formObject.value.amount));
+      this.shoppingListService.updateIngredient(this.editItemIndex, new IngredientModel(formObject.value.name, formObject.value.amount));
       formObject.reset();
     } else {
-      this.shoppingListService.addIngredient(new IngredientModel( formObject.value.name, formObject.value.amount));
+      const newIngredient = new IngredientModel(formObject.value.name, formObject.value.amount);
+      // this.shoppingListService.addIngredient(newIngredient);
+      this.store.dispatch(new AddIngredientAction(newIngredient));
       formObject.reset();
     }
     this.editMode = false;
