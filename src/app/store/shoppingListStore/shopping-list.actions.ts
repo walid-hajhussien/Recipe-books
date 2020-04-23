@@ -28,7 +28,7 @@ export class AddIngredientsAction implements Action {
 export class UpdateIngredientsAction implements Action {
   public readonly type = ShoppingListActionTypes.UPDATE_INGREDIENT;
 
-  constructor(public payLoad: { index: number, ingredient: IngredientModel }) {
+  constructor(public payLoad: IngredientModel) {
   }
 }
 

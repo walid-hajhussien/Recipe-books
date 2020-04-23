@@ -43,8 +43,8 @@ export class ShoppingListService {
     this.store.dispatch(new AddIngredientsAction(ingredients));
   }
 
-  updateIngredient(index: number, ingredient: IngredientModel) {
-    this.store.dispatch(new UpdateIngredientsAction({index, ingredient}));
+  updateIngredient(ingredient: IngredientModel) {
+    this.store.dispatch(new UpdateIngredientsAction(ingredient));
     // this.ingredients[index] = ingredient;
     // this.ingrediantsChange.next(this.ingredients);
 

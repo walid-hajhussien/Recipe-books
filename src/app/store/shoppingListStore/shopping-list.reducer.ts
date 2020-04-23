@@ -17,9 +17,9 @@ export function shoppingListReducer(state: ShoppingListStateInterface = shopping
         ingredients: [...state.ingredients, ...action.payLoad]
       };
     case ShoppingListActionTypes.UPDATE_INGREDIENT:
-      const newIngredientCopy = {...action.payLoad.ingredient};
+      const newIngredientCopy = {...action.payLoad};
       const newIngredients = [...state.ingredients];
-      newIngredients[action.payLoad.index] = newIngredientCopy;
+      newIngredients[state.editedIngredientIndex] = newIngredientCopy;
 
       return {
         ...state,
