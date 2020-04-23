@@ -3,7 +3,12 @@ import {IngredientModel} from '../../models/ingredient.model';
 import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {AddIngredientAction, AddIngredientsAction, UpdateIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
+import {
+  AddIngredientAction,
+  AddIngredientsAction,
+  DeleteIngredientsAction,
+  UpdateIngredientsAction
+} from '../../store/shoppingListStore/shopping-list.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +51,8 @@ export class ShoppingListService {
   }
 
   deleteIngredient(index: number) {
-    this.ingredients.splice(index, 1);
+    this.store.dispatch(new DeleteIngredientsAction(index));
+    // this.ingredients.splice(index, 1);
     // this.ingrediantsChange.next(this.ingredients);
   }
 
