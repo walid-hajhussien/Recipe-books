@@ -34,9 +34,6 @@ export class UpdateIngredientsAction implements Action {
 
 export class DeleteIngredientsAction implements Action {
   public readonly type = ShoppingListActionTypes.DELETE_INGREDIENT;
-
-  constructor(public payLoad: number) {
-  }
 }
 
 export class StartEditIngredientAction implements Action {

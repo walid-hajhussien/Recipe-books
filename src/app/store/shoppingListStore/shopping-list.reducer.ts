@@ -27,7 +27,7 @@ export function shoppingListReducer(state: ShoppingListStateInterface = shopping
       };
     case ShoppingListActionTypes.DELETE_INGREDIENT:
       const updatedIngredients = state.ingredients.filter((value, index) => {
-        return index !== action.payLoad;
+        return index !== state.editedIngredientIndex;
       });
 
       return {
