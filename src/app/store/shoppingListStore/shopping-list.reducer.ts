@@ -1,9 +1,9 @@
-import {ShoppingListActions, ShoppingListActionTypes} from './shopping-list.actions';
+import { ShoppingListActionTypes, TypeShoppingListActions} from './shopping-list.actions';
 import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-state-interface';
 import {shoppingListState} from './shopping-list.state';
 
 
-export function shoppingListReducer(state: ShoppingListStateInterface = shoppingListState, action: ShoppingListActions) {
+export function shoppingListReducer(state: ShoppingListStateInterface = shoppingListState, action: TypeShoppingListActions) {
 
   switch (action.type) {
     case ShoppingListActionTypes.ADD_INGREDIENT:

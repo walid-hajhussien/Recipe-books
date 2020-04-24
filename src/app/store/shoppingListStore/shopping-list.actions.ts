@@ -48,7 +48,7 @@ export class StopEditIngredientAction implements Action {
 
 }
 
-export type ShoppingListActions = AddIngredientAction |
+export type TypeShoppingListActions = AddIngredientAction |
   AddIngredientsAction |
   UpdateIngredientsAction |
   DeleteIngredientsAction |
