@@ -2,8 +2,8 @@ import {Action} from '@ngrx/store';
 import {UserModel} from '../../models/user.model';
 
 export enum AuthActionTypes {
-  LOGIN = 'LOGIN',
-  LOGOUT = 'LOGOUT'
+  LOGIN = '[Auth] LOGIN',
+  LOGOUT = '[Auth] LOGOUT'
 }
 
 
