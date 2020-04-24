@@ -3,6 +3,10 @@ import {RequestService} from '../../services/request/request.service';
 import {RecipeService} from '../../services/recipe/recipe.service';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../services/auth/auth.service';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from '../../interfaces/store/app-state-interface';
+import {map} from 'rxjs/operators';
+import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 
 @Component({
   selector: 'app-header',
@@ -14,11 +18,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isAuthenticated = false;
 
-  constructor(private requestService: RequestService, private recipeService: RecipeService, private authService: AuthService) {
+  constructor(private requestService: RequestService, private recipeService: RecipeService, private authService: AuthService, private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.userSubject.subscribe((user) => {
+    this.userSubscription = this.store.select('auth').pipe(map((authState: AuthStateInterface) => {
+      return authState.user;
+    })).subscribe((user) => {
       this.isAuthenticated = !!user;
     });
   }

@@ -9,16 +9,19 @@ import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from '../../interfaces/store/app-state-interface';
+import {LoginAction, LogoutAction} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
+  // userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
   tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router) {
+  constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router, private store: Store<AppStateInterface>) {
   }
 
   storeUserData(userData: FbSignIn | FbSignUp): void {
@@ -26,7 +29,8 @@ export class AuthService {
     const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
     localStorage.setItem('userData', JSON.stringify(user));
     // this.autoLogout(+userData.expiresIn * 1000);
-    this.userSubject.next(user);
+    // this.userSubject.next(user);
+    this.store.dispatch(new LoginAction(user));
   }
 
   formatError(errorResponse: HttpErrorResponse): string {
@@ -71,12 +75,14 @@ export class AuthService {
       const expirationTime = (new Date(userParse.tokenExpirationDate).getTime()) - (new Date().getTime());
       console.log(expirationTime);
       // this.autoLogout(expirationTime);
-      this.userSubject.next(user);
+      // this.userSubject.next(user);
+      this.store.dispatch(new LoginAction(user));
     }
   }
 
   logout(): void {
-    this.userSubject.next(null);
+    // this.userSubject.next(null);
+    this.store.dispatch(new LogoutAction());
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
