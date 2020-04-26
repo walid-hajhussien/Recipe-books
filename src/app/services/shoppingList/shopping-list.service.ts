@@ -4,8 +4,6 @@ import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {
-  AddIngredientAction,
-  AddIngredientsAction,
   DeleteIngredientsAction, StartEditIngredientAction, StopEditIngredientAction,
   UpdateIngredientsAction
 } from '../../store/shoppingListStore/shopping-list.actions';
@@ -20,12 +18,6 @@ export class ShoppingListService {
     this.startingEdit = new Subject<number>();
   }
 
-
-  addIngredients(ingredients: IngredientModel[]) {
-    // this.ingredients.push(...ingredients);
-    // this.ingrediantsChange.next(this.ingredients);
-    this.store.dispatch(new AddIngredientsAction(ingredients));
-  }
 
   updateIngredient(ingredient: IngredientModel) {
     this.store.dispatch(new UpdateIngredientsAction(ingredient));
