@@ -4,7 +4,7 @@ import {AuthActionTypes, TypeAuthActions} from './auth.action';
 
 export function authReducer(state: AuthStateInterface = authState, action: TypeAuthActions) {
   switch (action.type) {
-    case AuthActionTypes.LOGIN:
+    case AuthActionTypes.LOGINSUCCESS:
       return {
         ...state,
         user: action.payLoad

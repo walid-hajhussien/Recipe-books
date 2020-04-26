@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {LoginAction, LogoutAction} from '../../store/authStore/auth.action';
+import {LoginSuccessAction, LogoutAction} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class AuthService {
     // return user;
     // this.autoLogout(+userData.expiresIn * 1000);
     // this.userSubject.next(user);
-    this.store.dispatch(new LoginAction(user));
+    this.store.dispatch(new LoginSuccessAction(user));
   }
 
   formatError(errorResponse: HttpErrorResponse): string {
@@ -77,7 +77,7 @@ export class AuthService {
       console.log(expirationTime);
       // this.autoLogout(expirationTime);
       // this.userSubject.next(user);
-      this.store.dispatch(new LoginAction(user));
+      this.store.dispatch(new LoginSuccessAction(user));
     }
   }
 
