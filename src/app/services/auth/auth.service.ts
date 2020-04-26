@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {CredentialsModel} from '../../models/credentials.model';
-import {BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
 import {FbSignUp} from '../../interfaces/fb-sign-up';
-import {catchError, exhaustMap, take, tap} from 'rxjs/operators';
+import {catchError, exhaustMap, map, take, tap} from 'rxjs/operators';
 import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
 import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
@@ -25,8 +25,7 @@ export class AuthService {
   }
 
   storeUserData(userData: FbSignIn | FbSignUp) {
-    const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
-    const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
+    const user = this.createUser(userData);
     localStorage.setItem('userData', JSON.stringify(user));
     // return user;
     // this.autoLogout(+userData.expiresIn * 1000);
@@ -53,14 +52,17 @@ export class AuthService {
     }));
   }
 
-  signIn(email: string, password: string): Observable<any> {
+  signIn(email: string, password: string): Observable<LoginSuccessAction | any> {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignIn>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey
-      , credentials).pipe(catchError((errorResponse) => {
+      , credentials).pipe(
+        map((response) => {
+      const user = this.createUser(response);
+      return new LoginSuccessAction(user);
+    }),
+      catchError((errorResponse) => {
       return throwError(this.formatError(errorResponse));
-    }), tap((response) => {
-      this.storeUserData(response);
     }));
   }
 
@@ -90,6 +92,12 @@ export class AuthService {
     }
     this.tokenExpirationTimer = null;
     this.router.navigate(['/auth']);
+  }
+
+  createUser(userData: FbSignIn | FbSignUp): UserModel {
+    const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
+    const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
+    return user;
   }
 
   autoLogout(time: number) {

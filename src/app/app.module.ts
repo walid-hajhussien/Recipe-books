@@ -9,6 +9,8 @@ import {SharedModule} from './modules/sharedModule/shared.module';
 import {CoreModule} from './modules/coreModule/core.module';
 import {StoreModule} from '@ngrx/store';
 import {appReducer} from './store/appStore/app.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffect} from './store/authStore/auth.effect';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import {appReducer} from './store/appStore/app.reducer';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([AuthEffect]),
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
     CoreModule

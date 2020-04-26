@@ -2,15 +2,15 @@ import {Action} from '@ngrx/store';
 import {UserModel} from '../../models/user.model';
 
 export enum AuthActionTypes {
-  LOGINSUCCESS = '[Auth] LOGIN',
+  LOGIN_SUCCESS = '[Auth] LOGIN_SUCCESS',
   LOGOUT = '[Auth] LOGOUT',
-  LOGINREQUEST = '[Auth] LOGINREQUEST'
-
+  LOGIN_REQUEST = '[Auth] LOGIN_REQUEST',
+  LOGIN_FAIL = '[Auth] LOGIN_FAIL'
 }
 
 
 export class LoginSuccessAction implements Action {
-  public readonly type = AuthActionTypes.LOGINSUCCESS;
+  public readonly type = AuthActionTypes.LOGIN_SUCCESS;
 
   constructor(public payLoad: UserModel) {
   }
@@ -22,11 +22,18 @@ export class LogoutAction implements Action {
 }
 
 export class LoginRequest implements Action {
-  public readonly type = AuthActionTypes.LOGINREQUEST;
+  public readonly type = AuthActionTypes.LOGIN_REQUEST;
 
   constructor(public payLoad: { email: string, password: string }) {
   }
 }
 
+export class LoginFail implements Action {
+  public readonly type = AuthActionTypes.LOGIN_FAIL;
 
-export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest;
+  constructor(public payLoad: string) {
+  }
+}
+
+
+export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFail;

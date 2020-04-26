@@ -5,6 +5,9 @@ import {Router} from '@angular/router';
 import {AlertComponent} from '../../DynamicComponents/alert/alert.component';
 import {PlaceholderDirective} from '../../directives/placeholder/placeholder.directive';
 import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from '../../interfaces/store/app-state-interface';
+import {LoginRequest} from '../../store/authStore/auth.action';
 
 
 @Component({
@@ -22,7 +25,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   @ViewChild(PlaceholderDirective, {static: true}) alertHost: PlaceholderDirective;
 
-  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver, private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
@@ -49,7 +52,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     const password = form.value.password;
 
     if (this.isLoginMode) {
-      this.signIn(email, password);
+      this.store.dispatch(new LoginRequest({email, password}));
+     // this.signIn(email, password);
     } else {
       this.signUp(email, password);
     }

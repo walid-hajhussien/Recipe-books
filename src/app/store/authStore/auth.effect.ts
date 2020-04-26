@@ -13,16 +13,7 @@ import {AuthService} from '../../services/auth/auth.service';
 export class AuthEffect {
   @Effect()
   authLoginRequest = this.actions$.pipe(ofType(AuthActionTypes.LOGINREQUEST), switchMap((action: LoginRequest) => {
-    const credentials: CredentialsModel = new CredentialsModel(action.payLoad.email, action.payLoad.password);
-    return this.http.post<FbSignIn>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey
-      , credentials).pipe(map((response) => {
-      const user = this.authService.storeUserData(response);
-      of(user);
-
-    }), catchError((errorResponse) => {
-      return of();
-    }));
+    return this.authService.signIn(action.payLoad.email, action.payLoad.password);
   }));
 
   constructor(private actions$: Actions, private http: HttpClient, private authService: AuthService) {
