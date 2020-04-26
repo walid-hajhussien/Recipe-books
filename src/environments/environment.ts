@@ -2,9 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+
 export const environment = {
   production: false,
-  firebaseAPIKey: 'AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw'
+  firebaseAPIKey: 'AIzaSyCV9dfC0uefiSSmlILJb8OvgsUSqtXN4lw',
+  DevtoolsModule: StoreDevtoolsModule.instrument({logOnly: false}),
 };
 
 /*

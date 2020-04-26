@@ -11,6 +11,7 @@ import {StoreModule} from '@ngrx/store';
 import {appReducer} from './store/appStore/app.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffect} from './store/authStore/auth.effect';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {AuthEffect} from './store/authStore/auth.effect';
     HttpClientModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([AuthEffect]),
+    environment.DevtoolsModule,
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
     CoreModule
