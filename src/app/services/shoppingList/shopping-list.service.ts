@@ -14,28 +14,12 @@ import {
   providedIn: 'root'
 })
 export class ShoppingListService {
-  ingrediantsChange = new Subject<IngredientModel[]>();
-  private readonly ingredients: IngredientModel[];
   startingEdit: Subject<number>;
 
   constructor(private store: Store<AppStateInterface>) {
-    this.ingredients = [new IngredientModel('Apple', 5), new IngredientModel('Tomato', 10)];
     this.startingEdit = new Subject<number>();
   }
 
-  getIngredients() {
-    return this.ingredients;
-  }
-
-  getIngredientByIndex(index: number) {
-    return this.ingredients[index];
-  }
-
-  addIngredient(ingredient: IngredientModel) {
-    // this.ingredients.push(ingredient);
-    // this.ingrediantsChange.next(this.ingredients);
-    this.store.dispatch(new AddIngredientAction(ingredient));
-  }
 
   addIngredients(ingredients: IngredientModel[]) {
     // this.ingredients.push(...ingredients);

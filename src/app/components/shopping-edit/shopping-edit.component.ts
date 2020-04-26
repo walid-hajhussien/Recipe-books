@@ -49,7 +49,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       this.onClear();
     } else {
       const newIngredient = new IngredientModel(formObject.value.name, formObject.value.amount);
-      this.shoppingListService.addIngredient(newIngredient);
+      this.store.dispatch(new AddIngredientAction(newIngredient));
       formObject.reset();
     }
     this.editMode = false;
