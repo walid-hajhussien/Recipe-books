@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './services/auth/auth.service';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from './interfaces/store/app-state-interface';
+import {AutoLoginRequestAction} from './store/authStore/auth.action';
 import {UsersIdleService} from './services/usersIdle/users-idle.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,12 +13,12 @@ import {UsersIdleService} from './services/usersIdle/users-idle.service';
 export class AppComponent implements OnInit {
   title = 'Recipe-books';
 
-  constructor(private authService: AuthService, private usersIdleService: UsersIdleService) {
+  constructor(private store: Store<AppStateInterface>, private usersIdleService: UsersIdleService) {
 
   }
 
   ngOnInit(): void {
-    this.authService.autoSignIn();
+    this.store.dispatch(new AutoLoginRequestAction());
   }
 
 

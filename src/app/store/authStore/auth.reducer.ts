@@ -55,6 +55,19 @@ export function authReducer(state: AuthStateInterface = authState, action: TypeA
         errorMessage: null,
         loading: false
       };
+    case AuthActionTypes.AUTO_LOGIN_REQUEST:
+      return {
+        ...state,
+        user: null
+      };
+    case AuthActionTypes.AUTO_LOGIN_FAIL:
+      console.log('AUTO_LOGIN_FAIL : ', action.payLoad);
+      return {
+        ...state,
+        user: null,
+        errorMessage: null,
+        loading: false
+      };
     default:
       return state;
   }

@@ -9,7 +9,20 @@ export enum AuthActionTypes {
   CLEAR_ERROR = '[Auth] CLEAR_ERROR',
   SIGN_UP_SUCCESS = '[Auth] SIGN_UP_SUCCESS',
   SIGN_UP_FAIL = '[Auth] SIGN_UP_FAIL',
-  SIGN_UP_REQUEST = '[Auth] SIGN_UP_REQUEST'
+  SIGN_UP_REQUEST = '[Auth] SIGN_UP_REQUEST',
+  AUTO_LOGIN_REQUEST = '[Auth] AUTO_LOGIN_REQUEST',
+  AUTO_LOGIN_FAIL = '[Auth] AUTO_LOGIN_FAIL'
+}
+
+export class AutoLoginRequestAction implements Action {
+  public readonly type = AuthActionTypes.AUTO_LOGIN_REQUEST;
+}
+
+export class AutoLoginFailAction implements Action {
+  public readonly type = AuthActionTypes.AUTO_LOGIN_FAIL;
+
+  constructor(public payLoad: string) {
+  }
 }
 
 export class SignUpRequestAction implements Action {
@@ -72,4 +85,7 @@ export type TypeAuthActions =
   ClearErrorAction |
   SignUpRequestAction |
   SignUpSuccessAction |
-  SignUpFailAction;
+  SignUpFailAction |
+  AutoLoginFailAction |
+  AutoLoginRequestAction;
+

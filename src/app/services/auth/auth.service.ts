@@ -1,17 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {CredentialsModel} from '../../models/credentials.model';
-import {BehaviorSubject, Observable, of, Subject, throwError} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {FbSignUp} from '../../interfaces/fb-sign-up';
-import {catchError, exhaustMap, map, take, tap} from 'rxjs/operators';
+import {catchError, map,} from 'rxjs/operators';
 import {ErrorMessagePipe} from '../../pipes/errorMessage/error-message.pipe';
 import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
-import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {Store} from '@ngrx/store';
-import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {LoginFailAction, LoginSuccessAction, LogoutAction, SignUpFailAction, SignUpSuccessAction} from '../../store/authStore/auth.action';
+import {
+  AutoLoginFailAction,
+  LoginFailAction,
+  LoginSuccessAction,
+  SignUpFailAction,
+  SignUpSuccessAction
+} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +23,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private errorMessagePipe: ErrorMessagePipe,
-    private router: Router,
-    private store: Store<AppStateInterface>) {
+    private errorMessagePipe: ErrorMessagePipe) {
   }
 
   storeUserData(user: UserModel): void {
@@ -69,19 +70,19 @@ export class AuthService {
       }));
   }
 
-  autoSignIn() {
+  autoLogin() {
     const localUser = localStorage.getItem('userData');
     if (!localUser) {
-      return null;
+      return new AutoLoginFailAction('NO_USER_DATA');
     }
     const userParse = JSON.parse(localUser);
     const user = new UserModel(userParse.localId, userParse.email, userParse.token, new Date(userParse.tokenExpirationDate),
       userParse.refreshToken);
-    if (user.getToken) {
-      const expirationTime = (new Date(userParse.tokenExpirationDate).getTime()) - (new Date().getTime());
-      console.log(expirationTime);
-      this.store.dispatch(new LoginSuccessAction(user));
+    if (!user.getToken) {
+      return new AutoLoginFailAction('TOKEN_EXPIRED');
     }
+
+    return new LoginSuccessAction(user);
   }
 
   createUser(userData: FbSignIn | FbSignUp): UserModel {

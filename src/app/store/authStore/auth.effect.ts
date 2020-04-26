@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
+import {of} from 'rxjs';
 
 @Injectable()
 export class AuthEffect {
@@ -34,6 +35,11 @@ export class AuthEffect {
   authLogOut = this.actions$.pipe(ofType(AuthActionTypes.LOGOUT), tap(() => {
     this.authService.removeUserData();
     this.router.navigate(['/auth']);
+  }));
+
+  @Effect()
+  authAutoLogin = this.actions$.pipe(ofType(AuthActionTypes.AUTO_LOGIN_REQUEST), switchMap(() => {
+    return of(this.authService.autoLogin());
   }));
 
   constructor(private actions$: Actions, private http: HttpClient, private authService: AuthService, private router: Router) {
