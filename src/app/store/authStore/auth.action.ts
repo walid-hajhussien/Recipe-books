@@ -3,7 +3,9 @@ import {UserModel} from '../../models/user.model';
 
 export enum AuthActionTypes {
   LOGIN = '[Auth] LOGIN',
-  LOGOUT = '[Auth] LOGOUT'
+  LOGOUT = '[Auth] LOGOUT',
+  LOGINREQUEST = '[Auth] LOGINREQUEST'
+
 }
 
 
@@ -19,5 +21,12 @@ export class LogoutAction implements Action {
   public readonly type = AuthActionTypes.LOGOUT;
 }
 
+export class LoginRequest implements Action {
+  public readonly type = AuthActionTypes.LOGINREQUEST;
 
-export type TypeAuthActions = LoginAction | LogoutAction;
+  constructor(public payLoad: { email: string, password: string }) {
+  }
+}
+
+
+export type TypeAuthActions = LoginAction | LogoutAction | LoginRequest;

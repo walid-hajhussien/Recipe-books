@@ -24,10 +24,11 @@ export class AuthService {
   constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router, private store: Store<AppStateInterface>) {
   }
 
-  storeUserData(userData: FbSignIn | FbSignUp): void {
+  storeUserData(userData: FbSignIn | FbSignUp) {
     const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
     const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
     localStorage.setItem('userData', JSON.stringify(user));
+    // return user;
     // this.autoLogout(+userData.expiresIn * 1000);
     // this.userSubject.next(user);
     this.store.dispatch(new LoginAction(user));
