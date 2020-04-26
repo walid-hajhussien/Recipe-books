@@ -14,7 +14,8 @@ export class AuthEffect {
   }));
 
   @Effect({dispatch: false})
-  authSuccess = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_SUCCESS), tap((action) => {
+  authSuccess = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_SUCCESS), tap((action: LoginSuccessAction) => {
+    this.authService.storeUserData(action.payLoad);
     this.router.navigate(['/']);
   }));
 

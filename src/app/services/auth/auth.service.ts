@@ -24,13 +24,8 @@ export class AuthService {
   constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router, private store: Store<AppStateInterface>) {
   }
 
-  storeUserData(userData: FbSignIn | FbSignUp) {
-    const user = this.createUser(userData);
+  storeUserData(user: UserModel) {
     localStorage.setItem('userData', JSON.stringify(user));
-    // return user;
-    // this.autoLogout(+userData.expiresIn * 1000);
-    // this.userSubject.next(user);
-    this.store.dispatch(new LoginSuccessAction(user));
   }
 
   formatError(errorResponse: HttpErrorResponse): string {
