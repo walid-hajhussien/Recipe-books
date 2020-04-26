@@ -5,7 +5,7 @@ import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {AddIngredientAction, UpdateIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
+import {AddIngredientAction, DeleteIngredientsAction, UpdateIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
 
 
 @Component({
@@ -68,7 +68,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    this.shoppingListService.deleteIngredient();
+    this.store.dispatch(new DeleteIngredientsAction());
     this.onClear();
   }
 

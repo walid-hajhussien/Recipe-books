@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {
-  DeleteIngredientsAction, StartEditIngredientAction, StopEditIngredientAction
+  StartEditIngredientAction, StopEditIngredientAction
 } from '../../store/shoppingListStore/shopping-list.actions';
 
 @Injectable({
@@ -16,11 +16,6 @@ export class ShoppingListService {
     this.startingEdit = new Subject<number>();
   }
 
-  deleteIngredient() {
-    this.store.dispatch(new DeleteIngredientsAction());
-    // this.ingredients.splice(index, 1);
-    // this.ingrediantsChange.next(this.ingredients);
-  }
 
   startEditIngredient(index: number) {
     this.store.dispatch(new StartEditIngredientAction(index));
