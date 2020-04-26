@@ -7,7 +7,7 @@ import {PlaceholderDirective} from '../../directives/placeholder/placeholder.dir
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {LoginRequest} from '../../store/authStore/auth.action';
+import {ClearErrorAction, LoginRequest} from '../../store/authStore/auth.action';
 
 
 @Component({
@@ -97,7 +97,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   clearError() {
-    this.errorMessage = null;
+    this.store.dispatch(new ClearErrorAction());
   }
 
   private showErrorAlert(errorMessage: string) {

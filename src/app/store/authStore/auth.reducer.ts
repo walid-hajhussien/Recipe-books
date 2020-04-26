@@ -31,6 +31,11 @@ export function authReducer(state: AuthStateInterface = authState, action: TypeA
         errorMessage: null,
         loading: true
       };
+    case AuthActionTypes.CLEAR_ERROR:
+      return {
+        ...state,
+        errorMessage: null
+      };
     default:
       return state;
   }

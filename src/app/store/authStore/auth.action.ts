@@ -5,7 +5,8 @@ export enum AuthActionTypes {
   LOGIN_SUCCESS = '[Auth] LOGIN_SUCCESS',
   LOGOUT = '[Auth] LOGOUT',
   LOGIN_REQUEST = '[Auth] LOGIN_REQUEST',
-  LOGIN_FAIL = '[Auth] LOGIN_FAIL'
+  LOGIN_FAIL = '[Auth] LOGIN_FAIL',
+  CLEAR_ERROR = '[Auth] CLEAR_ERROR'
 }
 
 
@@ -35,5 +36,9 @@ export class LoginFailAction implements Action {
   }
 }
 
+export class ClearErrorAction implements Action {
+  public readonly type = AuthActionTypes.CLEAR_ERROR;
+}
 
-export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFailAction;
+
+export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFailAction | ClearErrorAction;
