@@ -1,11 +1,15 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {IngredientModel} from '../../models/ingredient.model';
-import {ShoppingListService} from '../../services/shoppingList/shopping-list.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {AddIngredientAction, DeleteIngredientsAction, UpdateIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
+import {
+  AddIngredientAction,
+  DeleteIngredientsAction,
+  StopEditIngredientAction,
+  UpdateIngredientsAction
+} from '../../store/shoppingListStore/shopping-list.actions';
 
 
 @Component({
@@ -20,7 +24,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editMode = false;
   editItem: IngredientModel;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<AppStateInterface>) {
+  constructor( private store: Store<AppStateInterface>) {
     console.log(this.formObject);
   }
 
@@ -47,22 +51,19 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const newIngredient = new IngredientModel(formObject.value.name, formObject.value.amount);
     if (this.editMode) {
       this.store.dispatch(new UpdateIngredientsAction(newIngredient));
-      this.onClear();
     } else {
       this.store.dispatch(new AddIngredientAction(newIngredient));
-      formObject.reset();
     }
-    this.editMode = false;
-
+    this.onClear();
   }
 
   ngOnDestroy(): void {
+    this.onClear();
     this.subscription.unsubscribe();
-    this.shoppingListService.stopEditIngredient();
   }
 
   onClear() {
-    this.shoppingListService.stopEditIngredient();
+    this.store.dispatch(new StopEditIngredientAction());
     this.editMode = false;
     this.formObject.reset();
   }

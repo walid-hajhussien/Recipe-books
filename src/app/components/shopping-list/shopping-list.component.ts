@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ShoppingListService} from '../../services/shoppingList/shopping-list.service';
 import {Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-state-interface';
@@ -14,7 +13,7 @@ import {StartEditIngredientAction} from '../../store/shoppingListStore/shopping-
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Observable<ShoppingListStateInterface>;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<AppStateInterface>) {
+  constructor( private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {

@@ -1,24 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {StopEditIngredientAction
-} from '../../store/shoppingListStore/shopping-list.actions';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingListService {
-  startingEdit: Subject<number>;
+export class SShoppingListService {
 
   constructor(private store: Store<AppStateInterface>) {
-    this.startingEdit = new Subject<number>();
   }
-
-
-  stopEditIngredient() {
-    this.store.dispatch(new StopEditIngredientAction());
-  }
-
 
 }
