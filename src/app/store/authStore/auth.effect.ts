@@ -12,7 +12,8 @@ import {AuthService} from '../../services/auth/auth.service';
 @Injectable()
 export class AuthEffect {
   @Effect()
-  authLoginRequest = this.actions$.pipe(ofType(AuthActionTypes.LOGINREQUEST), switchMap((action: LoginRequest) => {
+  authLoginRequest = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_REQUEST), switchMap((action: LoginRequest) => {
+    console.log('LOGIN_REQUEST_Effect', action);
     return this.authService.signIn(action.payLoad.email, action.payLoad.password);
   }));
 

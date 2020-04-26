@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {LoginSuccessAction, LogoutAction} from '../../store/authStore/auth.action';
+import {LoginFailAction, LoginSuccessAction, LogoutAction} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
@@ -57,13 +57,14 @@ export class AuthService {
     return this.http.post<FbSignIn>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey
       , credentials).pipe(
-        map((response) => {
-      const user = this.createUser(response);
-      return new LoginSuccessAction(user);
-    }),
+      map((response) => {
+        const user = this.createUser(response);
+        return new LoginSuccessAction(user);
+      }),
       catchError((errorResponse) => {
-      return throwError(this.formatError(errorResponse));
-    }));
+        const errorMessage = this.formatError(errorResponse);
+        return of(new LoginFailAction(errorMessage));
+      }));
   }
 
   autoSignIn() {

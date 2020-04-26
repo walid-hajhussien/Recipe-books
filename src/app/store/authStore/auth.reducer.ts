@@ -23,6 +23,7 @@ export function authReducer(state: AuthStateInterface = authState, action: TypeA
         errorMessage: action.payLoad
       };
     case AuthActionTypes.LOGIN_REQUEST:
+      console.log('LOGIN_REQUEST', action);
       return {
         ...state,
         errorMessage: null

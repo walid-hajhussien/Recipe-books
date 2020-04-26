@@ -28,7 +28,7 @@ export class LoginRequest implements Action {
   }
 }
 
-export class LoginFail implements Action {
+export class LoginFailAction implements Action {
   public readonly type = AuthActionTypes.LOGIN_FAIL;
 
   constructor(public payLoad: string) {
@@ -36,4 +36,4 @@ export class LoginFail implements Action {
 }
 
 
-export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFail;
+export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFailAction;

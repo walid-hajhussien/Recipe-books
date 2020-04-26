@@ -19,22 +19,29 @@ export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   errorMessage: string = null;
+
   private closeComponent: Subscription;
 
   @ViewChild('form', {static: true}) formObject: NgForm;
 
   @ViewChild(PlaceholderDirective, {static: true}) alertHost: PlaceholderDirective;
 
-  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver, private store: Store<AppStateInterface>) {
+  constructor(private authService: AuthService, private router: Router,
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
+    this.store.select('auth').subscribe((authState) => {
+      this.errorMessage = authState.errorMessage;
+    });
   }
 
   ngOnDestroy(): void {
     if (this.closeComponent) {
       this.closeComponent.unsubscribe();
     }
+
 
   }
 
@@ -53,7 +60,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     if (this.isLoginMode) {
       this.store.dispatch(new LoginRequest({email, password}));
-     // this.signIn(email, password);
+      // this.signIn(email, password);
     } else {
       this.signUp(email, password);
     }
