@@ -1,5 +1,5 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActionTypes, LoginRequest, LoginSuccessAction} from './auth.action';
+import {AuthActionTypes, LoginRequest, LoginSuccessAction, SignUpRequestAction, SignUpSuccessAction} from './auth.action';
 import {switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -14,7 +14,18 @@ export class AuthEffect {
   }));
 
   @Effect({dispatch: false})
-  authSuccess = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_SUCCESS), tap((action: LoginSuccessAction) => {
+  authLoginSuccess = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_SUCCESS), tap((action: LoginSuccessAction) => {
+    this.authService.storeUserData(action.payLoad);
+    this.router.navigate(['/']);
+  }));
+
+  @Effect()
+  authSignUpRequest = this.actions$.pipe(ofType(AuthActionTypes.SIGN_UP_REQUEST), switchMap((action: SignUpRequestAction) => {
+    return this.authService.signUp(action.payLoad.email, action.payLoad.password);
+  }));
+
+  @Effect({dispatch: false})
+  authSignUpSuccess = this.actions$.pipe(ofType(AuthActionTypes.SIGN_UP_SUCCESS), tap((action: SignUpSuccessAction) => {
     this.authService.storeUserData(action.payLoad);
     this.router.navigate(['/']);
   }));

@@ -6,9 +6,32 @@ export enum AuthActionTypes {
   LOGOUT = '[Auth] LOGOUT',
   LOGIN_REQUEST = '[Auth] LOGIN_REQUEST',
   LOGIN_FAIL = '[Auth] LOGIN_FAIL',
-  CLEAR_ERROR = '[Auth] CLEAR_ERROR'
+  CLEAR_ERROR = '[Auth] CLEAR_ERROR',
+  SIGN_UP_SUCCESS = '[Auth] SIGN_UP_SUCCESS',
+  SIGN_UP_FAIL = '[Auth] SIGN_UP_FAIL',
+  SIGN_UP_REQUEST = '[Auth] SIGN_UP_REQUEST'
 }
 
+export class SignUpRequestAction implements Action {
+  public readonly type = AuthActionTypes.SIGN_UP_REQUEST;
+
+  constructor(public payLoad: { email: string, password: string }) {
+  }
+}
+
+export class SignUpSuccessAction implements Action {
+  public readonly type = AuthActionTypes.SIGN_UP_SUCCESS;
+
+  constructor(public payLoad: UserModel) {
+  }
+}
+
+export class SignUpFailAction implements Action {
+  public readonly type = AuthActionTypes.SIGN_UP_FAIL;
+
+  constructor(public payLoad: string) {
+  }
+}
 
 export class LoginSuccessAction implements Action {
   public readonly type = AuthActionTypes.LOGIN_SUCCESS;
@@ -41,4 +64,12 @@ export class ClearErrorAction implements Action {
 }
 
 
-export type TypeAuthActions = LoginSuccessAction | LogoutAction | LoginRequest | LoginFailAction | ClearErrorAction;
+export type TypeAuthActions =
+  LoginSuccessAction |
+  LogoutAction |
+  LoginRequest |
+  LoginFailAction |
+  ClearErrorAction |
+  SignUpRequestAction |
+  SignUpSuccessAction |
+  SignUpFailAction;

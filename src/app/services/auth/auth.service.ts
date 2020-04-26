@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {LoginFailAction, LoginSuccessAction, LogoutAction} from '../../store/authStore/auth.action';
+import {LoginFailAction, LoginSuccessAction, LogoutAction, SignUpFailAction, SignUpSuccessAction} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
@@ -36,18 +36,20 @@ export class AuthService {
     return errorMessage;
   }
 
-  signUp(email: string, password: string): Observable<any> {
+  signUp(email: string, password: string): Observable<SignUpSuccessAction | SignUpFailAction> {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignUp>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey
-      , credentials).pipe(catchError(errorResponse => {
-      return throwError(this.formatError(errorResponse));
-    }), tap((response) => {
-      this.storeUserData(response);
+      , credentials).pipe(map((response) => {
+      const user = this.createUser(response);
+      return new SignUpSuccessAction(user);
+    }), catchError(errorResponse => {
+      const errorMessage = this.formatError(errorResponse);
+      return of(new SignUpFailAction(errorMessage));
     }));
   }
 
-  signIn(email: string, password: string): Observable<LoginSuccessAction | any> {
+  signIn(email: string, password: string): Observable<LoginSuccessAction | LoginFailAction> {
     const credentials: CredentialsModel = new CredentialsModel(email, password);
     return this.http.post<FbSignIn>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey

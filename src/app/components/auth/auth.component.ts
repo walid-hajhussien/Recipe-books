@@ -7,7 +7,7 @@ import {PlaceholderDirective} from '../../directives/placeholder/placeholder.dir
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {ClearErrorAction, LoginRequest} from '../../store/authStore/auth.action';
+import {ClearErrorAction, LoginRequest, SignUpRequestAction} from '../../store/authStore/auth.action';
 
 
 @Component({
@@ -49,6 +49,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   onSwitchLoginMode() {
     this.errorMessage = null;
     this.isLoginMode = !this.isLoginMode;
+    this.formObject.reset();
   }
 
 
@@ -61,39 +62,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     if (this.isLoginMode) {
       this.store.dispatch(new LoginRequest({email, password}));
-      // this.signIn(email, password);
     } else {
-      this.signUp(email, password);
+      this.store.dispatch(new SignUpRequestAction({email, password}));
     }
-  }
-
-  signUp(email: string, password: string) {
-    this.errorMessage = null;
-    this.isLoading = true;
-    this.authService.signUp(email, password).subscribe((response) => {
-      this.isLoading = false;
-      this.formObject.reset();
-      this.router.navigate(['/recipes']);
-    }, error => {
-      this.isLoading = false;
-      this.errorMessage = error;
-      // this.showErrorAlert(error);
-    });
-  }
-
-  signIn(email: string, password: string) {
-    this.errorMessage = null;
-    this.isLoading = true;
-    this.authService.signIn(email, password).subscribe((response) => {
-      this.formObject.reset();
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    }, (error) => {
-      this.isLoading = false;
-      this.errorMessage = error;
-      // this.showErrorAlert(error);
-    });
-
   }
 
   clearError() {

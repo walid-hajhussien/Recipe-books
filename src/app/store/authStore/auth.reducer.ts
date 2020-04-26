@@ -36,6 +36,25 @@ export function authReducer(state: AuthStateInterface = authState, action: TypeA
         ...state,
         errorMessage: null
       };
+    case AuthActionTypes.SIGN_UP_REQUEST:
+      return {
+        ...state,
+        errorMessage: null,
+        loading: true
+      };
+    case AuthActionTypes.SIGN_UP_FAIL:
+      return {
+        ...state,
+        errorMessage: action.payLoad,
+        loading: false
+      };
+    case AuthActionTypes.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        user: action.payLoad,
+        errorMessage: null,
+        loading: false
+      };
     default:
       return state;
   }
