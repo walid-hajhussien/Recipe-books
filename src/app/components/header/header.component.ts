@@ -2,11 +2,11 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core'
 import {RequestService} from '../../services/request/request.service';
 import {RecipeService} from '../../services/recipe/recipe.service';
 import {Subscription} from 'rxjs';
-import {AuthService} from '../../services/auth/auth.service';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {map} from 'rxjs/operators';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
+import {LogoutAction} from '../../store/authStore/auth.action';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isAuthenticated = false;
 
-  constructor(private requestService: RequestService, private recipeService: RecipeService, private authService: AuthService, private store: Store<AppStateInterface>) {
+  constructor(
+    private requestService: RequestService,
+    private recipeService: RecipeService,
+    private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
@@ -47,6 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(new LogoutAction());
   }
 }

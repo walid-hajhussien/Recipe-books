@@ -19,6 +19,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   errorMessage: string = null;
+  errorMessageSub: Subscription;
 
   private closeComponent: Subscription;
 
@@ -32,13 +33,14 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe((authState) => {
+    this.errorMessageSub = this.store.select('auth').subscribe((authState) => {
       this.errorMessage = authState.errorMessage;
       this.isLoading = authState.loading;
     });
   }
 
   ngOnDestroy(): void {
+    this.errorMessageSub.unsubscribe();
     if (this.closeComponent) {
       this.closeComponent.unsubscribe();
     }

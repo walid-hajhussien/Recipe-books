@@ -30,6 +30,12 @@ export class AuthEffect {
     this.router.navigate(['/']);
   }));
 
+  @Effect({dispatch: false})
+  authLogOut = this.actions$.pipe(ofType(AuthActionTypes.LOGOUT), tap(() => {
+    this.authService.removeUserData();
+    this.router.navigate(['/auth']);
+  }));
+
   constructor(private actions$: Actions, private http: HttpClient, private authService: AuthService, private router: Router) {
   }
 

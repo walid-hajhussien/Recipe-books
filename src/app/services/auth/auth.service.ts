@@ -18,14 +18,19 @@ import {LoginFailAction, LoginSuccessAction, LogoutAction, SignUpFailAction, Sig
 })
 export class AuthService {
 
-  // userSubject: BehaviorSubject<UserModel> = new BehaviorSubject<UserModel>(null);
-  tokenExpirationTimer: any;
-
-  constructor(private http: HttpClient, private errorMessagePipe: ErrorMessagePipe, private router: Router, private store: Store<AppStateInterface>) {
+  constructor(
+    private http: HttpClient,
+    private errorMessagePipe: ErrorMessagePipe,
+    private router: Router,
+    private store: Store<AppStateInterface>) {
   }
 
-  storeUserData(user: UserModel) {
+  storeUserData(user: UserModel): void {
     localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  removeUserData(): void {
+    localStorage.removeItem('userData');
   }
 
   formatError(errorResponse: HttpErrorResponse): string {
@@ -75,34 +80,14 @@ export class AuthService {
     if (user.getToken) {
       const expirationTime = (new Date(userParse.tokenExpirationDate).getTime()) - (new Date().getTime());
       console.log(expirationTime);
-      // this.autoLogout(expirationTime);
-      // this.userSubject.next(user);
       this.store.dispatch(new LoginSuccessAction(user));
     }
-  }
-
-  logout(): void {
-    // this.userSubject.next(null);
-    this.store.dispatch(new LogoutAction());
-    localStorage.removeItem('userData');
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-    this.tokenExpirationTimer = null;
-    this.router.navigate(['/auth']);
   }
 
   createUser(userData: FbSignIn | FbSignUp): UserModel {
     const expirationDate = new Date((new Date().getTime()) + +userData.expiresIn * 1000);
     const user = new UserModel(userData.localId, userData.email, userData.idToken, expirationDate, userData.refreshToken);
     return user;
-  }
-
-  autoLogout(time: number) {
-    // using userIdle
-    this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
-    }, time);
   }
 
   sendVerificationEmail(idToken: string): Observable<any> {

@@ -7,6 +7,7 @@ import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 import {map} from 'rxjs/operators';
 import {UserModel} from '../../models/user.model';
+import {LogoutAction} from '../../store/authStore/auth.action';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,11 @@ import {UserModel} from '../../models/user.model';
 export class UsersIdleService {
   ping: Subscription;
 
-  constructor(private authService: AuthService, private userIdle: UserIdleService, private store: Store<AppStateInterface>) {
+  constructor(
+    private authService: AuthService,
+    private userIdle: UserIdleService,
+    private store: Store<AppStateInterface>
+  ) {
     this.addEvent();
     this.store.select('auth').pipe(map((authState: AuthStateInterface) => {
       return authState.user;
@@ -51,7 +56,7 @@ export class UsersIdleService {
     this.stopIdle();
     this.ping.unsubscribe();
     console.log('Idle-Time-Out');
-    this.authService.logout();
+    this.store.dispatch(new LogoutAction());
   }
 
   startPing() {
