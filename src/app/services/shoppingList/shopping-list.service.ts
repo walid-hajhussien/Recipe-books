@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {
-  StartEditIngredientAction, StopEditIngredientAction
+import {StopEditIngredientAction
 } from '../../store/shoppingListStore/shopping-list.actions';
 
 @Injectable({
@@ -16,10 +15,6 @@ export class ShoppingListService {
     this.startingEdit = new Subject<number>();
   }
 
-
-  startEditIngredient(index: number) {
-    this.store.dispatch(new StartEditIngredientAction(index));
-  }
 
   stopEditIngredient() {
     this.store.dispatch(new StopEditIngredientAction());
