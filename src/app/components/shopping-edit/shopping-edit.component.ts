@@ -5,7 +5,7 @@ import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import {AddIngredientAction} from '../../store/shoppingListStore/shopping-list.actions';
+import {AddIngredientAction, UpdateIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
 
 
 @Component({
@@ -44,11 +44,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmitIngredient(formObject: NgForm) {
+    const newIngredient = new IngredientModel(formObject.value.name, formObject.value.amount);
     if (this.editMode) {
-      this.shoppingListService.updateIngredient(new IngredientModel(formObject.value.name, formObject.value.amount));
+      this.store.dispatch(new UpdateIngredientsAction(newIngredient));
       this.onClear();
     } else {
-      const newIngredient = new IngredientModel(formObject.value.name, formObject.value.amount);
       this.store.dispatch(new AddIngredientAction(newIngredient));
       formObject.reset();
     }

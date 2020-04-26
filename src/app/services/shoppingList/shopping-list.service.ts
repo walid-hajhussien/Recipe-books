@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {IngredientModel} from '../../models/ingredient.model';
 import {Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {
-  DeleteIngredientsAction, StartEditIngredientAction, StopEditIngredientAction,
-  UpdateIngredientsAction
+  DeleteIngredientsAction, StartEditIngredientAction, StopEditIngredientAction
 } from '../../store/shoppingListStore/shopping-list.actions';
 
 @Injectable({
@@ -16,14 +14,6 @@ export class ShoppingListService {
 
   constructor(private store: Store<AppStateInterface>) {
     this.startingEdit = new Subject<number>();
-  }
-
-
-  updateIngredient(ingredient: IngredientModel) {
-    this.store.dispatch(new UpdateIngredientsAction(ingredient));
-    // this.ingredients[index] = ingredient;
-    // this.ingrediantsChange.next(this.ingredients);
-
   }
 
   deleteIngredient() {
