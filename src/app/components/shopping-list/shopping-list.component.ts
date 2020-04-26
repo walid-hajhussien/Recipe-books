@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-state-interface';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
