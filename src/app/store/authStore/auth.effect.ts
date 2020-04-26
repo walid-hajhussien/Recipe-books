@@ -1,11 +1,7 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {AuthActionTypes, LoginRequest} from './auth.action';
-import {catchError, map, switchMap} from 'rxjs/operators';
-import {FbSignIn} from '../../interfaces/fb-sign-in';
-import {environment} from '../../../environments/environment';
+import { switchMap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {CredentialsModel} from '../../models/credentials.model';
-import {of} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 
@@ -13,7 +9,6 @@ import {AuthService} from '../../services/auth/auth.service';
 export class AuthEffect {
   @Effect()
   authLoginRequest = this.actions$.pipe(ofType(AuthActionTypes.LOGIN_REQUEST), switchMap((action: LoginRequest) => {
-    console.log('LOGIN_REQUEST_Effect', action);
     return this.authService.signIn(action.payLoad.email, action.payLoad.password);
   }));
 
