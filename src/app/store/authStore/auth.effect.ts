@@ -1,5 +1,12 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActionTypes, LoginRequest, LoginSuccessAction, SignUpRequestAction, SignUpSuccessAction} from './auth.action';
+import {
+  AuthActionTypes,
+  AutoLoginSuccessAction,
+  LoginRequest,
+  LoginSuccessAction,
+  SignUpRequestAction,
+  SignUpSuccessAction
+} from './auth.action';
 import {switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -40,6 +47,17 @@ export class AuthEffect {
   @Effect()
   authAutoLogin = this.actions$.pipe(ofType(AuthActionTypes.AUTO_LOGIN_REQUEST), switchMap(() => {
     return of(this.authService.autoLogin());
+  }));
+
+  @Effect({dispatch: false})
+  authAutoLoginSuccess = this.actions$.pipe(ofType(AuthActionTypes.AUTO_LOGIN_SUCCESS), tap((action: AutoLoginSuccessAction) => {
+    this.authService.storeUserData(action.payLoad);
+    const url = window.location.pathname;
+    if (url === '/auth') {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate([url]);
+    }
   }));
 
   constructor(private actions$: Actions, private http: HttpClient, private authService: AuthService, private router: Router) {

@@ -11,11 +11,19 @@ export enum AuthActionTypes {
   SIGN_UP_FAIL = '[Auth] SIGN_UP_FAIL',
   SIGN_UP_REQUEST = '[Auth] SIGN_UP_REQUEST',
   AUTO_LOGIN_REQUEST = '[Auth] AUTO_LOGIN_REQUEST',
-  AUTO_LOGIN_FAIL = '[Auth] AUTO_LOGIN_FAIL'
+  AUTO_LOGIN_FAIL = '[Auth] AUTO_LOGIN_FAIL',
+  AUTO_LOGIN_SUCCESS = '[Auth] AUTO_LOGIN_SUCCESS'
 }
 
 export class AutoLoginRequestAction implements Action {
   public readonly type = AuthActionTypes.AUTO_LOGIN_REQUEST;
+}
+
+export class AutoLoginSuccessAction implements Action {
+  public readonly type = AuthActionTypes.AUTO_LOGIN_SUCCESS;
+
+  constructor(public payLoad: UserModel) {
+  }
 }
 
 export class AutoLoginFailAction implements Action {
@@ -87,5 +95,6 @@ export type TypeAuthActions =
   SignUpSuccessAction |
   SignUpFailAction |
   AutoLoginFailAction |
-  AutoLoginRequestAction;
+  AutoLoginRequestAction |
+  AutoLoginSuccessAction;
 

@@ -68,6 +68,13 @@ export function authReducer(state: AuthStateInterface = authState, action: TypeA
         errorMessage: null,
         loading: false
       };
+    case AuthActionTypes.AUTO_LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payLoad,
+        errorMessage: null,
+        loading: null
+      };
     default:
       return state;
   }

@@ -9,7 +9,7 @@ import {FbSignIn} from '../../interfaces/fb-sign-in';
 import {UserModel} from '../../models/user.model';
 import {environment} from '../../../environments/environment';
 import {
-  AutoLoginFailAction,
+  AutoLoginFailAction, AutoLoginSuccessAction,
   LoginFailAction,
   LoginSuccessAction,
   SignUpFailAction,
@@ -82,7 +82,7 @@ export class AuthService {
       return new AutoLoginFailAction('TOKEN_EXPIRED');
     }
 
-    return new LoginSuccessAction(user);
+    return new AutoLoginSuccessAction(user);
   }
 
   createUser(userData: FbSignIn | FbSignUp): UserModel {
