@@ -6,14 +6,23 @@ import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import { FetchRecipesFailAction, FetchRecipesSuccessAction} from '../../store/recipeStore/recipe.action';
+import {FetchRecipesFailAction, FetchRecipesSuccessAction} from '../../store/recipeStore/recipe.action';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
+  private fetch: boolean;
 
   constructor(private http: HttpClient, private recipeService: RecipeService, private store: Store<AppStateInterface>) {
+  }
+
+  get isFetch() {
+    return this.fetch;
+  }
+
+  set isFetch(value: boolean) {
+    this.fetch = value;
   }
 
   storeRecipes(): Observable<any> {
@@ -27,6 +36,7 @@ export class RequestService {
         recipe.ingredients = recipe.ingredients || [];
         return recipe;
       });
+      this.fetch = true;
       return new FetchRecipesSuccessAction(newRecipes);
     }), catchError((error) => {
       const errorMessage = 'FAILED_FETCH_DATA';

@@ -16,6 +16,9 @@ export class RecipeResolverService implements Resolve<RecipeModel[]> {
   }
 
   resolve(activatedRouteSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {
+    if (this.requestService.isFetch) {
+      return;
+    }
     this.store.dispatch(new FetchRecipesAction());
     return this.actions$.pipe(ofType(RecipeActionType.FETCH_RECIPE_SUCCESS), take(1
     ));
