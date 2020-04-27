@@ -3,11 +3,12 @@ import {RecipeModel} from '../../models/recipe.model';
 
 export enum RecipeActionType {
   ADD_RECIPE = '[RECIPE] ADD_RECIPE',
-  ADD_RECIPES = '[RECIPE] ADD_RECIPES',
+  FETCH_RECIPE_SUCCESS = '[RECIPE] FETCH_RECIPE_SUCCESS',
   UPDATE_RECIPE = '[RECIPE] UPDATE_RECIPE',
   DELETE_RECIPE = '[RECIPE] DELETE_RECIPE',
   SAVE_RECIPES = '[RECIPE] SAVE_RECIPES',
   FETCH_RECIPE = '[RECIPE] FETCH_RECIPE',
+  FETCH_RECIPE_FAIL = '[RECIPE] FETCH_RECIPE_FAIL'
 }
 
 export class AddRecipeAction implements Action {
@@ -17,12 +18,20 @@ export class AddRecipeAction implements Action {
   }
 }
 
-export class AddRecipesAction implements Action {
-  public readonly type = RecipeActionType.ADD_RECIPES;
+export class FetchRecipesSuccessAction implements Action {
+  public readonly type = RecipeActionType.FETCH_RECIPE_SUCCESS;
 
   constructor(public payLoad: RecipeModel[]) {
   }
 }
+
+export class FetchRecipesFailAction implements Action {
+  public readonly type = RecipeActionType.FETCH_RECIPE_FAIL;
+
+  constructor(payLoad: string) {
+  }
+}
+
 
 export class UpdateRecipesAction implements Action {
   public readonly type = RecipeActionType.UPDATE_RECIPE;
@@ -52,8 +61,9 @@ export class FetchRecipesAction implements Action {
 
 export type TypeRecipeActions =
   AddRecipeAction |
-  AddRecipesAction |
+  FetchRecipesSuccessAction |
   UpdateRecipesAction |
   DeleteRecipesAction |
   SaveRecipesAction |
-  FetchRecipesAction;
+  FetchRecipesAction |
+  FetchRecipesFailAction;

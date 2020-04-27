@@ -7,6 +7,7 @@ import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {map} from 'rxjs/operators';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 import {LogoutAction} from '../../store/authStore/auth.action';
+import {FetchRecipesAction} from '../../store/recipeStore/recipe.action';
 
 @Component({
   selector: 'app-header',
@@ -39,9 +40,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onFetchRecipes() {
-    this.requestService.fetchRecipes().subscribe((result) => {
-      console.log(result);
-    });
+    this.store.dispatch(new FetchRecipesAction());
+    // this.requestService.fetchRecipes().subscribe((result) => {
+    //   console.log(result);
+    // });
   }
 
   ngOnDestroy(): void {

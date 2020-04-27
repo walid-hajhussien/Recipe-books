@@ -9,7 +9,7 @@ export function recipeReducer(state: RecipeStateInterface = recipeState, action:
         ...state,
         recipes: [...state.recipes, action.payLoad]
       };
-    case RecipeActionType.ADD_RECIPES:
+    case RecipeActionType.FETCH_RECIPE_SUCCESS:
       return {
         ...state,
         recipes: [...action.payLoad]
@@ -28,6 +28,11 @@ export function recipeReducer(state: RecipeStateInterface = recipeState, action:
       return {
         ...state,
         recipes: updatedRecipes
+      };
+    case RecipeActionType.FETCH_RECIPE_FAIL:
+      return {
+        ...state,
+        recipes: []
       };
     default:
       return state;
