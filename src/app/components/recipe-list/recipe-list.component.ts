@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {RecipeModel} from '../../models/recipe.model';
-import {RecipeService} from '../../services/recipe/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {RecipeStateInterface} from '../../interfaces/store/recipe-state-interface';
+import {Store} from '@ngrx/store';
+import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 
 @Component({
   selector: 'app-recipe-list',
@@ -10,23 +11,16 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  recipes: RecipeModel[] = [];
-  recipeChange: Subscription;
+  recipes: Observable<RecipeStateInterface>;
 
-  constructor(public recipeService: RecipeService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.recipeChange = this.recipeService.recipesChange.subscribe((recipes) => {
-      this.recipes = recipes;
-    });
+  constructor( private router: Router, private activatedRoute: ActivatedRoute, private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
-    console.log(8888);
-    this.recipes = this.recipeService.getRecipes();
+    this.recipes = this.store.select('recipe');
   }
 
-  onClickRecipe(recipe: RecipeModel, i: number) {
-    // this.onSelectedRecipe.emit(recipe);
-    // this.recipeService.getSelectedRecipes().emit(recipe);
+  onClickRecipe( i: number) {
     this.router.navigate([i], {relativeTo: this.activatedRoute});
   }
 

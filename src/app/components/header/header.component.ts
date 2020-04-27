@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onFetchRecipes() {
     this.requestService.fetchRecipes().subscribe((result) => {
       console.log(result);
-      this.recipeService.setRecipes(result);
     });
   }
 

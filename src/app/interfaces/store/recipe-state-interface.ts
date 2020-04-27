@@ -1,5 +1,5 @@
-import {RecipeModule} from '../../modules/recipeModule/recipe.module';
+import {RecipeModel} from '../../models/recipe.model';
 
 export interface RecipeStateInterface {
-  recipes: RecipeModule[];
+  recipes: RecipeModel[];
 }

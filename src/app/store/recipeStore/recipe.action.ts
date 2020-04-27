@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {RecipeModule} from '../../modules/recipeModule/recipe.module';
+import {RecipeModel} from '../../models/recipe.model';
 
 export enum RecipeActionType {
   ADD_RECIPE = '[RECIPE] ADD_RECIPE',
@@ -7,27 +7,27 @@ export enum RecipeActionType {
   UPDATE_RECIPE = '[RECIPE] UPDATE_RECIPE',
   DELETE_RECIPE = '[RECIPE] DELETE_RECIPE',
   SAVE_RECIPES = '[RECIPE] SAVE_RECIPES',
-  FETCH_RECIPE = '[RECIPE] FETCH_RECIPE'
+  FETCH_RECIPE = '[RECIPE] FETCH_RECIPE',
 }
 
 export class AddRecipeAction implements Action {
   public readonly type = RecipeActionType.ADD_RECIPE;
 
-  constructor(public payLoad: RecipeModule) {
+  constructor(public payLoad: RecipeModel) {
   }
 }
 
 export class AddRecipesAction implements Action {
   public readonly type = RecipeActionType.ADD_RECIPES;
 
-  constructor(public payLoad: RecipeModule[]) {
+  constructor(public payLoad: RecipeModel[]) {
   }
 }
 
 export class UpdateRecipesAction implements Action {
   public readonly type = RecipeActionType.UPDATE_RECIPE;
 
-  constructor(public payLoad: { index: number, recipe: RecipeModule }) {
+  constructor(public payLoad: { index: number, recipe: RecipeModel }) {
   }
 }
 
@@ -41,7 +41,7 @@ export class DeleteRecipesAction implements Action {
 export class SaveRecipesAction implements Action {
   public readonly type = RecipeActionType.SAVE_RECIPES;
 
-  constructor(public payLoad: RecipeModule[]) {
+  constructor(public payLoad: RecipeModel[]) {
   }
 }
 
