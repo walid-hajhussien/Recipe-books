@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RequestService} from '../../services/request/request.service';
 import {RecipeService} from '../../services/recipe/recipe.service';
 import {Subscription} from 'rxjs';
@@ -7,7 +7,7 @@ import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {map} from 'rxjs/operators';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 import {LogoutAction} from '../../store/authStore/auth.action';
-import {FetchRecipesAction} from '../../store/recipeStore/recipe.action';
+import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/recipe.action';
 
 @Component({
   selector: 'app-header',
@@ -34,16 +34,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveRecipes() {
-    this.requestService.storeRecipes().subscribe((result) => {
-      console.log('recipes saved : ', result);
-    });
+    this.store.dispatch(new StoreRecipesAction());
   }
 
   onFetchRecipes() {
     this.store.dispatch(new FetchRecipesAction());
-    // this.requestService.fetchRecipes().subscribe((result) => {
-    //   console.log(result);
-    // });
   }
 
   ngOnDestroy(): void {

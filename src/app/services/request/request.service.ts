@@ -25,8 +25,7 @@ export class RequestService {
     this.fetch = value;
   }
 
-  storeRecipes(): Observable<any> {
-    const recipes: RecipeModel[] = this.recipeService.getRecipes();
+  storeRecipes(recipes): Observable<any> {
     return this.http.put('https://recipe-books-2a969.firebaseio.com/recipes.json', recipes);
   }
 

@@ -6,7 +6,7 @@ export enum RecipeActionType {
   FETCH_RECIPE_SUCCESS = '[RECIPE] FETCH_RECIPE_SUCCESS',
   UPDATE_RECIPE = '[RECIPE] UPDATE_RECIPE',
   DELETE_RECIPE = '[RECIPE] DELETE_RECIPE',
-  SAVE_RECIPES = '[RECIPE] SAVE_RECIPES',
+  STORE_RECIPES = '[RECIPE] SAVE_RECIPES',
   FETCH_RECIPE = '[RECIPE] FETCH_RECIPE',
   FETCH_RECIPE_FAIL = '[RECIPE] FETCH_RECIPE_FAIL'
 }
@@ -47,11 +47,8 @@ export class DeleteRecipesAction implements Action {
   }
 }
 
-export class SaveRecipesAction implements Action {
-  public readonly type = RecipeActionType.SAVE_RECIPES;
-
-  constructor(public payLoad: RecipeModel[]) {
-  }
+export class StoreRecipesAction implements Action {
+  public readonly type = RecipeActionType.STORE_RECIPES;
 }
 
 export class FetchRecipesAction implements Action {
@@ -64,6 +61,6 @@ export type TypeRecipeActions =
   FetchRecipesSuccessAction |
   UpdateRecipesAction |
   DeleteRecipesAction |
-  SaveRecipesAction |
+  StoreRecipesAction |
   FetchRecipesAction |
   FetchRecipesFailAction;
