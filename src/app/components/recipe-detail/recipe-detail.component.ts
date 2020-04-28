@@ -5,8 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AddIngredientsAction} from '../../store/shoppingListStore/shopping-list.actions';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
-import { map, switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {RecipeStateInterface} from '../../interfaces/store/recipe-state-interface';
+import {DeleteRecipesAction} from '../../store/recipeStore/recipe.action';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -48,7 +49,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
+    this.store.dispatch(new DeleteRecipesAction(this.id));
     this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
   }
 
