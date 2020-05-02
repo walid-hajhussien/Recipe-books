@@ -2,7 +2,7 @@
   "name": "recipe-books",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "node dist/Recipe-books/server/main.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
