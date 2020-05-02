@@ -2,8 +2,8 @@
   "name": "recipe-books",
   "version": "0.0.0",
   "scripts": {
-    "ng": "node dist/Recipe-books/server/main.js",
-    "start": "ng serve",
+    "ng": "ng",
+    "start": "node dist/Recipe-books/server/main.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
