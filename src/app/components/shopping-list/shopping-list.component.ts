@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {ShoppingListStateInterface} from '../../interfaces/store/shopping-list-state-interface';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {StartEditIngredientAction} from '../../store/shoppingListStore/shopping-list.actions';
-import {EditIngredientTrigger} from '../../animations/shoppingList/shoppingList.trigger';
+import {EditIngredientTrigger} from '../../animations/shoppingList/editIngredient.trigger';
 
 @Component({
   selector: 'app-shopping-list',
