@@ -13,14 +13,14 @@ import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 export class RecipeListComponent implements OnInit {
   recipes: Observable<RecipeStateInterface>;
 
-  constructor( private router: Router, private activatedRoute: ActivatedRoute, private store: Store<AppStateInterface>) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private store: Store<AppStateInterface>) {
   }
 
   ngOnInit(): void {
     this.recipes = this.store.select('recipe');
   }
 
-  onClickRecipe( i: number) {
+  onClickRecipe(i: number) {
     this.router.navigate([i], {relativeTo: this.activatedRoute});
   }
 
