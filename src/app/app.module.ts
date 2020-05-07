@@ -13,6 +13,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AuthEffect} from './store/authStore/auth.effect';
 import {environment} from '../environments/environment';
 import {RecipeEffect} from './store/recipeStore/recipe.effect';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import {RecipeEffect} from './store/recipeStore/recipe.effect';
     HeaderComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
@@ -29,7 +30,8 @@ import {RecipeEffect} from './store/recipeStore/recipe.effect';
     environment.DevtoolsModule,
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
