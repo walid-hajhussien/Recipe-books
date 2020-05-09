@@ -8,6 +8,8 @@ import {map} from 'rxjs/operators';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 import {LogoutAction} from '../../store/authStore/auth.action';
 import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/recipe.action';
+import { UpdateNetworkAction} from '../../store/networkStore/network.action';
+import {ConnectionService} from 'ng-connection-service';
 
 @Component({
   selector: 'app-header',
@@ -17,22 +19,33 @@ import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/re
 
 export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
+  networkSubscription: Subscription;
   isAuthenticated = false;
   isOnline: boolean;
 
   constructor(
     private requestService: RequestService,
     private recipeService: RecipeService,
-    private store: Store<AppStateInterface>) {
-    this.isOnline = false;
+    private store: Store<AppStateInterface>,
+    private connectionService: ConnectionService
+  ) {
+    this.isOnline = true;
   }
 
   ngOnInit(): void {
+    // user Subscription
     this.userSubscription = this.store.select('auth').pipe(map((authState: AuthStateInterface) => {
       return authState.user;
     })).subscribe((user) => {
       this.isAuthenticated = !!user;
     });
+
+    // network Subscription
+    this.networkSubscription = this.connectionService.monitor().subscribe((isConnected: boolean) => {
+      this.isOnline = isConnected;
+      this.store.dispatch(new UpdateNetworkAction(isConnected));
+    });
+
   }
 
   onSaveRecipes() {
@@ -45,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+    this.networkSubscription.unsubscribe();
   }
 
   logout(): void {

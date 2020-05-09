@@ -14,6 +14,7 @@ import {AuthEffect} from './store/authStore/auth.effect';
 import {environment} from '../environments/environment';
 import {RecipeEffect} from './store/recipeStore/recipe.effect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NetworkEffect} from './store/networkStore/network.effect';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([AuthEffect, RecipeEffect]),
+    EffectsModule.forRoot([AuthEffect, RecipeEffect, NetworkEffect]),
     environment.DevtoolsModule,
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
