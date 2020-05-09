@@ -15,6 +15,7 @@ import {environment} from '../environments/environment';
 import {RecipeEffect} from './store/recipeStore/recipe.effect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NetworkEffect} from './store/networkStore/network.effect';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {NetworkEffect} from './store/networkStore/network.effect';
     UserIdleModule.forRoot({idle: 600, timeout: 10, ping: 300}),
     SharedModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
