@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor, HttpParams
 } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable} from 'rxjs';
 import {AuthService} from '../../services/auth/auth.service';
 import {exhaustMap, map, take} from 'rxjs/operators';
 import {UserModel} from '../../models/user.model';
@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
+    // return EMPTY;
     return this.store.select('auth').pipe(take(1), map((authState: AuthStateInterface) => {
       return authState.user;
     }), exhaustMap((user: UserModel) => {
