@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
 import {AuthStateInterface} from '../../interfaces/store/auth-state-interface';
 import {LogoutAction} from '../../store/authStore/auth.action';
 import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/recipe.action';
-import { UpdateNetworkAction} from '../../store/networkStore/network.action';
+import {UpdateNetworkAction} from '../../store/networkStore/network.action';
 import {ConnectionService} from 'ng-connection-service';
 
 @Component({
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store<AppStateInterface>,
     private connectionService: ConnectionService
   ) {
-    this.isOnline = true;
+    this.isOnline = navigator.onLine;
   }
 
   ngOnInit(): void {
