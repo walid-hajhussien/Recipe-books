@@ -11,7 +11,7 @@
           <input required minlength="6" ngModel name="password" type="password" id="password" class="form-control">
         </div>
         <div>
-          <button [disabled]="form.invalid" class="btn btn-primary"
+          <button [disabled]="form.invalid || !isOnline" class="btn btn-primary"
                   type="submit">{{isLoginMode ? 'Login' : 'Sign Up'}}</button>
           |
 
@@ -20,18 +20,19 @@
         </div>
       </fieldset>
     </form>
-<!--    Normal alert-->
+    <!--    Normal alert-->
 
-        <div class="alert alert-danger alert-dismissible"  *ngIf="errorMessage" style="margin-top: 15px">
-          <button type="button" class="close" (click)="clearError()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {{errorMessage}}
-        </div>
+    <div class="alert alert-danger alert-dismissible" *ngIf="errorMessage" style="margin-top: 15px">
+      <button type="button" class="close" (click)="clearError()" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+      {{errorMessage}}
+    </div>
 
-<!--    dynamic component ngIf-->
-<!--    <app-alert (closeAlert)="clearError()" [message]="errorMessage" *ngIf="errorMessage"></app-alert>-->
+    <!--    dynamic component ngIf-->
+    <!--    <app-alert (closeAlert)="clearError()" [message]="errorMessage" *ngIf="errorMessage"></app-alert>-->
 
-<!--    dynamic component imperative -->
-<!--    <ng-template appPlaceholder></ng-template>-->
+    <!--    dynamic component imperative -->
+    <!--    <ng-template appPlaceholder></ng-template>-->
     <div *ngIf="isLoading" style="text-align: center">
       <app-loading-spinner></app-loading-spinner>
     </div>

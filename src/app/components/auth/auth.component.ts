@@ -8,6 +8,7 @@ import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {ClearErrorAction, LoginRequest, SignUpRequestAction} from '../../store/authStore/auth.action';
+import {NetworkStateInterface} from '../../interfaces/store/network-state-interface';
 
 
 @Component({
@@ -18,8 +19,10 @@ import {ClearErrorAction, LoginRequest, SignUpRequestAction} from '../../store/a
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
+  isOnline = true;
   errorMessage: string = null;
   errorMessageSub: Subscription;
+  networkSub: Subscription;
 
   private closeComponent: Subscription;
 
@@ -33,9 +36,15 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Error Message
     this.errorMessageSub = this.store.select('auth').subscribe((authState) => {
       this.errorMessage = authState.errorMessage;
       this.isLoading = authState.loading;
+    });
+
+    // network
+    this.networkSub = this.store.select('network').subscribe((networkState: NetworkStateInterface) => {
+      this.isOnline = networkState.online;
     });
   }
 
