@@ -3,9 +3,11 @@ import {shoppingListReducer} from '../shoppingListStore/shopping-list.reducer';
 import {AppStateInterface} from '../../interfaces/store/app-state-interface';
 import {authReducer} from '../authStore/auth.reducer';
 import {recipeReducer} from '../recipeStore/recipe.reducer';
+import {networkReducer} from '../networkStore/network.reducer';
 
 export const appReducer: ActionReducerMap<AppStateInterface> = {
   shoppingList: shoppingListReducer,
   auth: authReducer,
-  recipe: recipeReducer
+  recipe: recipeReducer,
+  network: networkReducer
 };
