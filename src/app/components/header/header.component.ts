@@ -18,11 +18,13 @@ import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/re
 export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isAuthenticated = false;
+  isOnline: boolean;
 
   constructor(
     private requestService: RequestService,
     private recipeService: RecipeService,
     private store: Store<AppStateInterface>) {
+    this.isOnline = false;
   }
 
   ngOnInit(): void {
