@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {RequestService} from '../../services/request/request.service';
 import {RecipeService} from '../../services/recipe/recipe.service';
 import {Subscription} from 'rxjs';
@@ -10,6 +10,7 @@ import {LogoutAction} from '../../store/authStore/auth.action';
 import {FetchRecipesAction, StoreRecipesAction} from '../../store/recipeStore/recipe.action';
 import {UpdateNetworkAction} from '../../store/networkStore/network.action';
 import {ConnectionService} from 'ng-connection-service';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -27,24 +28,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private recipeService: RecipeService,
     private store: Store<AppStateInterface>,
-    private connectionService: ConnectionService
+    private connectionService: ConnectionService,
+    @Inject(PLATFORM_ID) private platformId
   ) {
-    this.isOnline = navigator.onLine;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isOnline = navigator.onLine;
+    }
   }
 
   ngOnInit(): void {
-    // user Subscription
-    this.userSubscription = this.store.select('auth').pipe(map((authState: AuthStateInterface) => {
-      return authState.user;
-    })).subscribe((user) => {
-      this.isAuthenticated = !!user;
-    });
 
-    // network Subscription
-    this.networkSubscription = this.connectionService.monitor().subscribe((isConnected: boolean) => {
-      this.isOnline = isConnected;
-      this.store.dispatch(new UpdateNetworkAction(isConnected));
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      // user Subscription
+      this.userSubscription = this.store.select('auth').pipe(map((authState: AuthStateInterface) => {
+        return authState.user;
+      })).subscribe((user) => {
+        this.isAuthenticated = !!user;
+      });
+
+      // network Subscription
+      this.networkSubscription = this.connectionService.monitor().subscribe((isConnected: boolean) => {
+        this.isOnline = isConnected;
+        this.store.dispatch(new UpdateNetworkAction(isConnected));
+      });
+
+    }
+
 
   }
 
@@ -57,8 +66,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-    this.networkSubscription.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.userSubscription.unsubscribe();
+      this.networkSubscription.unsubscribe();
+    }
+
   }
 
   logout(): void {
