@@ -32,7 +32,7 @@
     "@nguniversal/express-engine": "^9.0.1",
     "angular-user-idle": "^2.2.2",
     "bootstrap": "^3.4.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
